@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Trimitha | Trust • Thought • Technology</title>
+    
+    <meta name="description" content="Contact Trimitha for inquiries, partnerships, or support. Let's build something impactful together.">
+    <meta name="keywords" content="Trimitha, Contact, Support, Partnership, Inquiry, Career">
+    <meta name="author" content="Trimitha">
+    <link rel="icon" type="image/png" href="Images/Trimitha Logo.png" />
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Trimitha",
+      "description": "A technology-driven company built on Trust, Thought, and Technology with togetherness",
+      "url": "https://trimitha.co.in",
+      sameAs: [
+        "https://www.linkedin.com/company/trimitha",
+        "https://www.instagram.com/trimitha.co/",
+        "https://twitter.com/trimithacompany"
+      ]
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Fix: Ensure Tailwind is loaded before configuring
+        const configureTailwind = () => {
+            if (typeof tailwind !== 'undefined') {
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            colors: {
+                                primary: '#0A2540',
+                                secondary: '#00D4FF',
+                                accent: '#C5A059',
+                                light: '#F4F6F8',
+                            },
+                            fontFamily: {
+                                sans: ['Inter', 'sans-serif'],
+                                heading: ['Montserrat', 'sans-serif'],
+                            },
+                            animation: {
+                                'spin-slow': 'spin 12s linear infinite',
+                                'spin-reverse': 'spin 8s linear infinite reverse',
+                            }
+                        }
+                    }
+                };
+            } else {
+                // Retry if tailwind script hasn't executed yet
+                setTimeout(configureTailwind, 50);
+            }
+        };
+        
+        configureTailwind();
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-[#00D4FF] selection:text-[#0A2540]">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 backdrop-blur-md border-b border-gray-800 transition-all duration-300" style="background-color: rgba(10, 37, 64, 0.95);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <!-- Custom Logo Image: Trimitha Logo -->
+                    <img src="Images/Trimitha Main1.png" alt="Trimitha Logo" class="h-10 w-auto object-contain">
+                    <span class="font-bold text-2xl tracking-tight text-white font-heading">TRIMITHA</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8" id="desktop-menu">
+                    <!-- Public Links -->
+                    <div class="public-nav flex items-center space-x-8">
+                        <a href="index.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">HOME</a>
+                        <a href="about.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">ABOUT</a>
+                        <a href="services.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">SERVICES</a>
+                        <a href="contact.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">CONTACT</a>
+                        <div class="h-6 w-px bg-gray-700 mx-2"></div>
+                        <a href="login.html" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Employee Login
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-white">
+                        <i data-lucide="menu" class="w-6 h-6" id="mobile-menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0A2540] border-t border-gray-800 px-4 pt-4 pb-6 space-y-4 shadow-xl">
+            <div class="public-nav flex flex-col space-y-4">
+                <a href="index.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">HOME</a>
+                <a href="about.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">ABOUT</a>
+                <a href="services.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">SERVICES</a>
+                <a href="contact.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">CONTACT</a>
+                <div class="pt-4 border-t border-gray-700">
+                    <a href="login.html" class="w-full text-left text-gray-300 py-3 px-2 flex items-center gap-3 hover:text-white transition-colors">
+                        <i data-lucide="lock" class="w-5 h-5"></i> Employee Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="pt-20 bg-white min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center mb-16">
+                    <h2 class="text-[#0A2540] text-3xl md:text-4xl font-bold mb-4 font-heading">Let's Build Together</h2>
+                    <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
+                        Whether you have a question, need support, or want to discuss a partnership, we are here to listen. Reach out to us, and let's create something impactful.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+                    <!-- Contact Info Side -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-[#0A2540] mb-4">Get in Touch</h3>
+                            <p class="text-gray-600 mb-6">We value open communication. Connect with us through any of the channels below.</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-4">
+                                    <div class="p-3 bg-blue-50 rounded-lg text-[#00D4FF]">
+                                        <i data-lucide="mail" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-[#0A2540]">Email Us</p>
+                                        <a href="mailto:contact@trimitha.co.in" class="text-gray-600 hover:text-[#00D4FF] transition-colors">contact@trimitha.co.in</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-4">
+                                    <div class="p-3 bg-blue-50 rounded-lg text-[#00D4FF]">
+                                        <i data-lucide="map-pin" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-[#0A2540]">Visit Us</p>
+                                        <p class="text-gray-600">Proddatur, India</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-[#0A2540] mb-4">Follow Our Journey</h4>
+                            <div class="flex gap-4">
+                                <a href="https://www.linkedin.com/company/trimitha" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#0A2540] text-white hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                </a>
+                                <a href="https://x.com/trimithacompany" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#0A2540] text-white hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                                </a>
+                                <a href="https://www.instagram.com/trimitha.co/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#0A2540] text-white hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-6 border-t border-gray-100">
+                            <p class="text-sm text-gray-500">
+                                Are you an employee? <a href="login.html" class="text-[#00D4FF] font-semibold hover:underline">Log in to Internal Support</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form Side -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                        <form id="contact-form" onsubmit="submitContactForm(event)" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-[#0A2540] mb-2">Name</label>
+                                    <input type="text" id="contact-name" placeholder="Your Name" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#00D4FF] focus:ring-1 focus:ring-[#00D4FF] transition-all" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-[#0A2540] mb-2">Email</label>
+                                    <input type="email" id="contact-email" placeholder="your@email.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#00D4FF] focus:ring-1 focus:ring-[#00D4FF] transition-all" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-[#0A2540] mb-2">Subject</label>
+                                <select id="contact-subject" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#00D4FF] focus:ring-1 focus:ring-[#00D4FF] transition-all">
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Partnership Opportunity">Partnership Opportunity</option>
+                                    <option value="Support Request">Support Request</option>
+                                    <option value="Career Question">Career Question</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-[#0A2540] mb-2">Message</label>
+                                <textarea id="contact-message" rows="4" placeholder="How can we help you?" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#00D4FF] focus:ring-1 focus:ring-[#00D4FF] transition-all" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-[#0A2540] text-white font-bold py-4 rounded-lg hover:bg-[#163558] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200">
+                                Send Message
+                            </button>
+
+                            <div class="text-center space-y-2">
+                                <p class="text-xs text-gray-500 flex items-center justify-center gap-1">
+                                    <i data-lucide="clock" class="w-3 h-3"></i> We typically respond within 24-48 hours.
+                                </p>
+                                <p class="text-xs text-gray-400">
+                                    <i data-lucide="lock" class="w-3 h-3 inline mr-1"></i> Your details are safe with us and will never be shared.
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0A2540] text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <!-- Custom Logo SVG Footer -->
+                        <img src="Images/Trimitha Logo.png" alt="Trimitha Logo" class="h-10 w-auto object-contain">
+                        <span class="font-bold text-xl font-heading">TRIMITHA</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Trimitha is a people-driven company focused on trust, shared thinking, and working together to turn ideas into impact.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-[#C5A059] mb-6 font-heading">Navigation</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="index.html" class="hover:text-[#00D4FF]">Home</a></li>
+                        <li><a href="about.html" class="hover:text-[#00D4FF]">About Us</a></li>
+                        <li><a href="services.html" class="hover:text-[#00D4FF]">Services</a></li>
+                        <li><a href="contact.html" class="hover:text-[#00D4FF]">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-[#C5A059] mb-6 font-heading">Legal</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="privacy.html" class="hover:text-[#00D4FF]">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-[#00D4FF]">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html" class="hover:text-[#00D4FF]">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-[#C5A059] mb-6 font-heading">Contact</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Proddatur, India</li>
+                        <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> contact@trimitha.co.in</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Trimitha All rights reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="https://www.linkedin.com/company/trimitha" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                    </a>
+                    <a href="https://x.com/trimithacompany" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                        <i data-lucide="twitter" class="w-4 h-4"></i>
+                    </a>
+                    <a href="https://www.instagram.com/trimitha.co/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                        <i data-lucide="instagram" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbwNhZKg__y6Zyhmm9rhybF5VLYVP2vWTBTHvyy3SXXRrRHnoId5GFX46lKh7RUI5C1o/exec";
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        // Submit Contact Form
+        async function submitContactForm(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+
+            const payload = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            };
+
+            try {
+                // FIXED: Use POST request with URLSearchParams for reliable data transmission
+                const formData = new URLSearchParams();
+                formData.append('action', 'submitContact');
+                formData.append('data', JSON.stringify(payload));
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alert('Message sent successfully! We will contact you soon.');
+                    e.target.reset();
+                } else {
+                    alert('Failed to send message: ' + result.message);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Connection error. Please try again later.');
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Initialize icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

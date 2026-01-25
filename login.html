@@ -1,0 +1,3021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Login | Trimitha</title>
+    
+    <meta name="description" content="Trimitha Employee Portal - Secure login for employees.">
+    <meta name="keywords" content="Trimitha, Employee Login, Dashboard, Portal, HR, Payroll">
+    <meta name="author" content="Trimitha">
+    <link rel="icon" type="image/png" href="Trimitha Logo.png" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Fix: Ensure Tailwind is loaded before configuring
+        const configureTailwind = () => {
+            if (typeof tailwind !== 'undefined') {
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            colors: {
+                                primary: '#0A2540',
+                                secondary: '#00D4FF',
+                                accent: '#C5A059',
+                                light: '#F4F6F8',
+                            },
+                            fontFamily: {
+                                sans: ['Inter', 'sans-serif'],
+                                heading: ['Montserrat', 'sans-serif'],
+                            },
+                            animation: {
+                                'spin-slow': 'spin 12s linear infinite',
+                                'spin-reverse': 'spin 8s linear infinite reverse',
+                            }
+                        }
+                    }
+                };
+            } else {
+                // Retry if tailwind script hasn't executed yet
+                setTimeout(configureTailwind, 50);
+            }
+        };
+        
+        configureTailwind();
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* Custom Scrollbar for Sidebar */
+        aside::-webkit-scrollbar {
+            width: 5px;
+        }
+        aside::-webkit-scrollbar-track {
+            background: #0A2540; 
+        }
+        aside::-webkit-scrollbar-thumb {
+            background: #1e3a5f; 
+            border-radius: 5px;
+        }
+        
+        /* Animation for modal */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        /* Line clamp */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Mobile sidebar animation */
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .animate-slide-in-left {
+            animation: slideInLeft 0.3s ease-out;
+        }
+        
+        /* Breadcrumb styling */
+        .breadcrumb-item {
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+        .breadcrumb-item.active {
+            color: #0A2540;
+            font-weight: 600;
+        }
+        
+        /* Active tab styling */
+        .active-tab {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            color: #00D4FF !important;
+            font-weight: 600;
+        }
+        
+        /* Circular image styling */
+        .circular-image {
+            border-radius: 50% !important;
+            overflow: hidden !important;
+            object-fit: cover !important;
+        }
+        
+        /* Circular container */
+        .circular-container {
+            border-radius: 50% !important;
+            overflow: hidden !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-[#00D4FF] selection:text-[#0A2540]">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 backdrop-blur-md border-b border-gray-800 transition-all duration-300" style="background-color: rgba(10, 37, 64, 0.95);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <!-- Custom Logo Image: Trimitha Logo -->
+                    <img src="Images/Trimitha Main1.png" alt="Trimitha Logo" class="h-10 w-auto object-contain">
+                    <span class="font-bold text-2xl tracking-tight text-white font-heading">TRIMITHA</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8" id="desktop-menu">
+                    <!-- Public Links (Default) -->
+                    <div class="public-nav flex items-center space-x-8">
+                        <a href="index.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">HOME</a>
+                        <a href="about.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">ABOUT</a>
+                        <a href="services.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">SERVICES</a>
+                        <a href="contact.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">CONTACT</a>
+                        <div class="h-6 w-px bg-gray-700 mx-2"></div>
+                        <a href="login.html" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Employee Login
+                        </a>
+                    </div>
+
+                    <!-- Private Links (Hidden by default) -->
+                    <div class="private-nav hidden items-center gap-6">
+                        <!-- Dashboard Toggle for Mobile -->
+                        <button onclick="toggleDashboardSidebar()" class="text-white hover:text-[#00D4FF] font-medium md:hidden">
+                            Menu
+                        </button>
+                        <button onclick="switchDashTab('overview')" class="text-white hover:text-[#00D4FF] font-medium hidden md:block">Dashboard</button>
+                        <div class="flex items-center gap-3 bg-[#163558] py-2 px-4 rounded-full">
+                            <div class="w-8 h-8 rounded-full bg-[#00D4FF] flex items-center justify-center text-[#0A2540] font-bold text-xs relative overflow-hidden circular-container">
+                                <span id="user-avatar-text" class="z-0">TM</span>
+                                <img id="user-avatar-img" src="" class="absolute inset-0 w-full h-full object-cover hidden circular-image" alt="User" />
+                            </div>
+                            <!-- Updated: This will now show the Employee ID -->
+                            <span class="text-sm text-white font-medium" id="user-name-display">TM-XXXXXXXX</span>
+                        </div>
+                        <button onclick="handleLogout()" class="text-gray-400 hover:text-white">
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-white">
+                        <i data-lucide="menu" class="w-6 h-6" id="mobile-menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0A2540] border-t border-gray-800 px-4 pt-4 pb-6 space-y-4 shadow-xl">
+            <div class="public-nav flex flex-col space-y-4">
+                <a href="index.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">HOME</a>
+                <a href="about.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">ABOUT</a>
+                <a href="services.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">SERVICES</a>
+                <a href="contact.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">CONTACT</a>
+                <div class="pt-4 border-t border-gray-700">
+                    <a href="login.html" class="w-full text-left text-gray-300 py-3 px-2 flex items-center gap-3 hover:text-white transition-colors">
+                        <i data-lucide="lock" class="w-5 h-5"></i> Employee Login
+                    </a>
+                </div>
+            </div>
+            <div class="private-nav hidden flex-col space-y-2">
+                <button onclick="switchDashTab('overview'); toggleMobileMenu()" class="text-left text-white font-medium py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-gray-400"></i> Dashboard
+                </button>
+                
+                <button onclick="switchDashTab('profile'); toggleMobileMenu()" class="text-left text-white font-medium py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="user" class="w-5 h-5 text-gray-400"></i> Employee Details
+                </button>
+                
+                <button onclick="switchDashTab('attendance'); toggleMobileMenu()" class="text-left text-white font-medium py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="calendar" class="w-5 h-5 text-gray-400"></i> Attendance
+                </button>
+                
+                <button onclick="switchDashTab('payroll'); toggleMobileMenu()" class="text-left text-white font-medium py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="dollar-sign" class="w-5 h-5 text-gray-400"></i> Payroll
+                </button>
+                
+                <button onclick="switchDashTab('documents'); toggleMobileMenu()" class="text-left text-white font-medium py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="folder" class="w-5 h-5 text-gray-400"></i> Documents
+                </button>
+                
+                <button onclick="switchDashTab('tasks'); toggleMobileMenu()" class="text-left text-white font-medium py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="check-square" class="w-5 h-5 text-gray-400"></i> Tasks & Projects
+                </button>
+                
+                <div class="border-t border-gray-700 my-2"></div>
+                
+                <button onclick="switchDashTab('support'); toggleMobileMenu()" class="text-left text-gray-300 text-sm py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="life-buoy" class="w-5 h-5"></i> Help & Support
+                </button>
+                
+                <button onclick="switchDashTab('settings'); toggleMobileMenu()" class="text-left text-gray-300 text-sm py-2 px-2 hover:bg-white/5 rounded flex items-center gap-3">
+                    <i data-lucide="settings" class="w-5 h-5"></i> Settings
+                </button>
+                
+                <button onclick="handleLogout()" class="text-left text-red-400 font-bold py-2 px-2 hover:bg-red-900/20 rounded flex items-center gap-3 mt-2">
+                    <i data-lucide="log-out" class="w-5 h-5"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ================= LOGIN PAGE ================= -->
+        <div id="page-login" class="page-section active">
+            <div class="min-h-screen pt-20 bg-[#F4F6F8] flex items-center justify-center px-4">
+                <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                    <div class="bg-[#0A2540] p-8 text-center relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-[#00D4FF] rounded-full blur-[40px] opacity-20"></div>
+                        <div class="relative z-10 flex flex-col items-center">
+                            <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-4">
+                                <i data-lucide="lock" class="text-[#00D4FF] w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white font-heading">Employee Portal</h2>
+                            <p class="text-blue-200 text-sm mt-2">Secure Gateway Access</p>
+                        </div>
+                    </div>
+
+                    <form id="login-form" onsubmit="handleLogin(event)" class="p-8 space-y-6">
+                        <div id="login-error" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+                            Invalid credentials.
+                        </div>
+                        
+                        <!-- STEP 1: Credentials -->
+                        <div id="step-1-container">
+                            <div class="mb-4">
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Employee ID</label>
+                                <input type="text" id="empId" placeholder="e.g. TM-4021" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00D4FF]" required>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Password</label>
+                                <input type="password" id="password" placeholder="••••••••••••" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00D4FF]" required>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Standard 2FA -->
+                        <div id="step-2-container" class="hidden">
+                            <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6 text-center">
+                                <i data-lucide="shield-check" class="w-8 h-8 text-[#00D4FF] mx-auto mb-2"></i>
+                                <p class="text-sm text-[#0A2540] font-bold">Two-Step Verification</p>
+                                <p class="text-xs text-gray-500">Enter code from Authenticator.</p>
+                            </div>
+                            <div class="mb-6">
+                                <input type="text" id="2fa-code" placeholder="000 000" maxlength="6" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-center text-xl tracking-widest font-mono">
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: First Time Setup (QR Code) -->
+                        <div id="step-setup-container" class="hidden text-center">
+                            <h3 class="text-[#0A2540] font-bold mb-2">Setup Authenticator</h3>
+                            <p class="text-xs text-gray-500 mb-4">Scan this QR code with your authenticator app (Google Auth, Authy).</p>
+                            
+                            <div class="bg-white p-2 border border-gray-200 inline-block rounded-lg mb-4">
+                                <img id="qr-image" src="" alt="QR Code" class="w-40 h-40">
+                            </div>
+                            
+                            <p class="text-xs text-gray-400 mb-2">Or enter manual key:</p>
+                            <code id="manual-secret" class="block bg-gray-100 p-2 rounded text-xs font-mono mb-4 text-[#00D4FF]"></code>
+
+                            <div class="mb-4">
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Verify Code</label>
+                                <input type="text" id="setup-code" placeholder="Enter generated code" maxlength="6" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-center text-lg font-mono">
+                            </div>
+                        </div>
+
+                        <button type="submit" id="login-btn" class="w-full bg-[#0A2540] text-white font-semibold py-3 rounded-lg hover:bg-[#163558] transition-colors shadow-lg flex justify-center items-center">
+                            Access Dashboard
+                        </button>
+                        
+                        <p class="text-center text-xs text-gray-400 mt-4">
+                            Unauthorized access is prohibited. <br/> All attempts are logged.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= DASHBOARD PAGE ================= -->
+        <div id="page-dashboard" class="page-section">
+            <div class="min-h-screen pt-20 bg-[#F4F6F8] flex relative">
+                
+                <!-- Mobile Dashboard Overlay -->
+                <div id="dashboard-overlay" onclick="toggleDashboardSidebar()" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity"></div>
+
+                <!-- Dashboard Sidebar (Responsive) -->
+                <aside id="dashboard-sidebar" class="w-64 bg-[#0A2540] text-white flex-shrink-0 fixed inset-y-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 lg:static lg:block h-full overflow-y-auto transition-transform duration-300 ease-in-out border-r border-gray-800 pt-20 lg:pt-0">
+                    <div class="p-6 border-b border-gray-700 flex justify-between items-center lg:hidden">
+                        <div class="flex items-center gap-3">
+                            <!-- Updated Sidebar Avatar to support Image -->
+                            <div class="w-10 h-10 rounded-full bg-[#00D4FF] flex items-center justify-center text-[#0A2540] font-bold relative overflow-hidden circular-container">
+                                <span id="sidebar-avatar-text" class="z-0">TM</span>
+                                <img id="sidebar-avatar-img" src="" class="absolute inset-0 w-full h-full object-cover hidden circular-image" alt="User" />
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm" id="sidebar-name">Alex Mercer</h3>
+                                <p class="text-xs text-gray-400" id="sidebar-role">Manager</p>
+                            </div>
+                        </div>
+                        <button onclick="toggleDashboardSidebar()" class="text-white p-1 hover:bg-white/10 rounded">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="p-6 border-b border-gray-700 hidden lg:block">
+                        <div class="flex items-center gap-3">
+                            <!-- Updated Sidebar Avatar to support Image -->
+                            <div class="w-10 h-10 rounded-full bg-[#00D4FF] flex items-center justify-center text-[#0A2540] font-bold relative overflow-hidden circular-container">
+                                <span id="sidebar-avatar-text-desktop" class="z-0">TM</span>
+                                <img id="sidebar-avatar-img-desktop" src="" class="absolute inset-0 w-full h-full object-cover hidden circular-image" alt="User" />
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm" id="sidebar-name-desktop">Alex Mercer</h3>
+                                <p class="text-xs text-gray-400" id="sidebar-role-desktop">Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <nav class="p-4 space-y-2">
+                        <button onclick="switchDashTab('overview')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                            <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+                        </button>
+                        <!-- DBA & OWNER MENU (Renamed to "Employees") -->
+                        <button id="btn-manage-employees" onclick="switchDashTab('manage')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300 hidden">
+                            <i data-lucide="users-round" class="w-5 h-5 text-[#C5A059]"></i> Employees
+                        </button>
+                        <!-- ACCOUNTS MENU (DBA + Finance ONLY) -->
+                        <button id="btn-manage-accounts" onclick="switchDashTab('accounts')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300 hidden">
+                            <i data-lucide="calculator" class="w-5 h-5 text-green-400"></i> Accounts
+                        </button>
+                        <!-- END MENU -->
+                        <button onclick="switchDashTab('profile')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                            <i data-lucide="user" class="w-5 h-5"></i> Employee Details
+                        </button>
+                        <!-- Added ID for visibility control -->
+                        <button id="btn-sidebar-attendance" onclick="switchDashTab('attendance')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                            <i data-lucide="calendar" class="w-5 h-5"></i> Attendance
+                        </button>
+                        <!-- Added ID for visibility control -->
+                        <button id="btn-sidebar-payroll" onclick="switchDashTab('payroll')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                            <i data-lucide="dollar-sign" class="w-5 h-5"></i> Payroll
+                        </button>
+                        <button onclick="switchDashTab('documents')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                            <i data-lucide="folder" class="w-5 h-5"></i> Documents
+                        </button>
+                        <button onclick="switchDashTab('tasks')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                            <i data-lucide="check-square" class="w-5 h-5"></i> Tasks & Projects
+                        </button>
+                        <div class="pt-4 mt-4 border-t border-gray-700">
+                            <button onclick="switchDashTab('support')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                                <i data-lucide="life-buoy" class="w-5 h-5"></i> Help & Support
+                            </button>
+                            <button onclick="switchDashTab('settings')" class="dash-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors text-left text-gray-300">
+                                <i data-lucide="settings" class="w-5 h-5"></i> Settings
+                            </button>
+                        </div>
+                    </nav>
+                </aside>
+
+                <!-- Main Content Area -->
+                <div class="flex-1 w-full lg:ml-0 p-4 md:p-8 overflow-y-auto h-[calc(100vh-80px)]">
+                    
+                    <!-- Mobile Dashboard Header (Toggle Sidebar) -->
+                    <div class="lg:hidden mb-6 flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleDashboardSidebar()" class="text-[#0A2540] p-2 hover:bg-gray-100 rounded-lg">
+                                <i data-lucide="menu" class="w-6 h-6"></i>
+                            </button>
+                            <div>
+                                <span class="font-bold text-[#0A2540]" id="mobile-dashboard-title">Dashboard</span>
+                                <p class="text-xs text-gray-500" id="mobile-dashboard-subtitle">Main Menu</p>
+                            </div>
+                        </div>
+                        <button onclick="handleLogout()" class="text-red-500 hover:text-red-700 p-2">
+                            <i data-lucide="log-out" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- TAB: OVERVIEW -->
+                    <div id="dash-view-overview" class="dash-view hidden">
+                        <div class="flex justify-between items-center mb-8">
+                            <div>
+                                <h2 class="text-3xl font-bold text-[#0A2540] font-heading mb-1" id="dash-greeting">Welcome back</h2>
+                                <p class="text-gray-500 text-sm">Here's what's happening with your team today.</p>
+                            </div>
+                            <span class="text-sm text-gray-400 font-medium" id="current-date">October 24, 2026</span>
+                        </div>
+
+                        <!-- Stats Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+                                <div class="p-3 bg-blue-50 rounded-lg text-[#00D4FF]"><i data-lucide="check-circle" class="w-6 h-6"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Pending Tasks</p>
+                                    <p class="text-2xl font-bold text-[#0A2540]">12</p>
+                                    <p class="text-xs text-red-500 font-medium mt-1">3 Due Today</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+                                <div class="p-3 bg-green-50 rounded-lg text-green-600"><i data-lucide="clock" class="w-6 h-6"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Leave Balance</p>
+                                    <p class="text-2xl font-bold text-[#0A2540]">18 Days</p>
+                                    <p class="text-xs text-green-600 font-medium mt-1">Valid until Dec 31</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+                                <div class="p-3 bg-purple-50 rounded-lg text-purple-600"><i data-lucide="award" class="w-6 h-6"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Training Score</p>
+                                    <p class="text-2xl font-bold text-[#0A2540]">92%</p>
+                                    <p class="text-xs text-purple-600 font-medium mt-1">Top 10%</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+                                <div class="p-3 bg-orange-50 rounded-lg text-orange-500"><i data-lucide="bell" class="w-6 h-6"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-medium">Announcements</p>
+                                    <p class="text-2xl font-bold text-[#0A2540]">3 New</p>
+                                    <p class="text-xs text-gray-400 font-medium mt-1">Since last login</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid lg:grid-cols-3 gap-8">
+                            <!-- Announcements -->
+                            <div class="lg:col-span-2 space-y-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="font-bold text-[#0A2540]">Recent Announcements</h3>
+                                    <a href="#" class="text-sm text-[#00D4FF] hover:underline">View All</a>
+                                </div>
+                                
+                                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:border-[#00D4FF] transition-colors cursor-pointer group">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <span class="px-2 py-1 bg-blue-50 text-[#00D4FF] rounded text-xs font-bold uppercase tracking-wide">Management</span>
+                                        <span class="text-xs text-gray-400">Oct 24, 2026</span>
+                                    </div>
+                                    <h4 class="font-bold text-[#0A2540] group-hover:text-[#00D4FF] transition-colors">Q4 Strategy Meeting Update</h4>
+                                    <p class="text-sm text-gray-500 mt-2 line-clamp-2">The updated strategic goals for the upcoming quarter have been published. Please review the attached documentation to align your team's objectives.</p>
+                                    <div class="mt-4 text-xs font-semibold text-[#00D4FF] flex items-center gap-1 group-hover:gap-2 transition-all">Read more <i data-lucide="arrow-right" class="w-3 h-3"></i></div>
+                                </div>
+
+                                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:border-[#C5A059] transition-colors cursor-pointer group">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <span class="px-2 py-1 bg-amber-50 text-amber-600 rounded text-xs font-bold uppercase tracking-wide">HR</span>
+                                        <span class="text-xs text-gray-400">Oct 22, 2026</span>
+                                    </div>
+                                    <h4 class="font-bold text-[#0A2540] group-hover:text-amber-600 transition-colors">Holiday Calendar 2027</h4>
+                                    <p class="text-sm text-gray-500 mt-2 line-clamp-2">The official holiday list for the next year is now available. Plan your leaves accordingly.</p>
+                                    <div class="mt-4 text-xs font-semibold text-amber-600 flex items-center gap-1 group-hover:gap-2 transition-all">Read more <i data-lucide="arrow-right" class="w-3 h-3"></i></div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Shortcuts -->
+                            <div class="bg-[#0A2540] rounded-xl shadow-lg p-6 text-white">
+                                <h3 class="font-bold mb-4">Quick Actions</h3>
+                                <div class="space-y-3">
+                                    <button class="w-full py-2 px-4 bg-[#00D4FF] hover:bg-[#00b7db] text-[#0A2540] rounded-lg flex items-center gap-3 transition-colors text-sm font-semibold">
+                                        <i data-lucide="plus-circle" class="w-4 h-4 text-[#0A2540]"></i> Apply for Leave
+                                    </button>
+                                    <button class="w-full py-2 px-4 bg-[#00D4FF] hover:bg-[#00b7db] text-[#0A2540] rounded-lg flex items-center gap-3 transition-colors text-sm font-semibold">
+                                        <i data-lucide="download" class="w-4 h-4 text-[#0A2540]"></i> Download Payslip
+                                    </button>
+                                    <button class="w-full py-2 px-4 bg-[#00D4FF] hover:bg-[#00b7db] text-[#0A2540] rounded-lg flex items-center gap-3 transition-colors text-sm font-semibold">
+                                        <i data-lucide="help-circle" class="w-4 h-4 text-[#0A2540]"></i> Raise IT Ticket
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- TAB: MANAGE EMPLOYEES (DBA & Owner) -->
+                    <div id="dash-view-manage" class="dash-view hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                            <div>
+                                <h2 class="text-2xl font-bold text-[#0A2540] font-heading">Employees</h2>
+                                <p class="text-sm text-gray-500">View and manage system users.</p>
+                            </div>
+                            <div class="flex gap-2 w-full md:w-auto">
+                                <div class="relative flex-1 md:w-64">
+                                    <input type="text" id="employee-search" placeholder="Search name or ID..." class="w-full bg-white border border-gray-200 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-[#00D4FF]" onkeyup="filterEmployeeTiles()">
+                                    <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-2.5"></i>
+                                </div>
+                                <!-- Add Button: Only visible to DBA via JS -->
+                                <button id="btn-add-employee" onclick="openAddEmployeeModal()" class="bg-[#0A2540] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-[#163558] transition-colors whitespace-nowrap hidden">
+                                    <i data-lucide="user-plus" class="w-4 h-4"></i> Add Employee
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- TILES VIEW -->
+                        <div id="employee-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Tiles populated by JS -->
+                            <div class="col-span-full text-center py-12 text-gray-500">Loading employees...</div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: ACCOUNTS (DBA + Finance ONLY) -->
+                    <div id="dash-view-accounts" class="dash-view hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                            <div>
+                                <h2 class="text-2xl font-bold text-[#0A2540] font-heading">Accounts & Payroll</h2>
+                                <p class="text-sm text-gray-500">Manage employee salary, tax, and bonus details.</p>
+                            </div>
+                            <div class="w-full md:w-64">
+                                <div class="relative">
+                                    <input type="text" id="accounts-search" placeholder="Search employee..." class="w-full bg-white border border-gray-200 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-[#00D4FF]" onkeyup="filterAccountsTable()">
+                                    <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-2.5"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100">
+                                        <tr>
+                                            <th class="px-6 py-4 font-semibold">Employee</th>
+                                            <th class="px-6 py-4 font-semibold">Department</th>
+                                            <th class="px-6 py-4 font-semibold">Current Salary</th>
+                                            <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="accounts-table-body" class="divide-y divide-gray-100">
+                                        <tr><td colspan="4" class="px-6 py-8 text-center text-gray-500">Loading data...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: PROFILE (Default upon login) -->
+                    <div id="dash-view-profile" class="dash-view hidden">
+                        <h2 class="text-2xl font-bold text-[#0A2540] font-heading mb-6">Employee Details</h2>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                            <div class="p-8">
+                                <div class="flex flex-col md:flex-row items-center mb-8 gap-6">
+                                    <!-- Profile Photo - FIXED CIRCULAR STYLING -->
+                                    <div class="relative group">
+                                        <div class="w-32 h-32 rounded-full border-4 border-white bg-white shadow-md flex items-center justify-center text-3xl font-bold text-gray-400 overflow-hidden circular-container">
+                                            <!-- Initials Fallback -->
+                                            <span id="profile-initials-display" class="z-0">--</span>
+                                            <!-- Real Image with Referrer Policy - FIXED: Added circular-image class -->
+                                            <img id="profile-photo-display" src="" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover hidden z-10 circular-image" alt="Profile" onerror="this.onerror=null; this.style.display='none'; document.getElementById('profile-initials-display').style.display='block';" />
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Name & Title -->
+                                    <div class="mb-2 flex-1 text-center md:text-left">
+                                        <h3 class="text-3xl font-bold text-[#0A2540] mb-1" id="profile-fullname">Loading...</h3>
+                                        <p class="text-gray-500 font-medium text-lg flex items-center justify-center md:justify-start gap-2" id="profile-role-sub">
+                                            <i data-lucide="briefcase" class="w-4 h-4"></i> ...
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Info Cards Grid -->
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <!-- Personal Info Card -->
+                                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                                        <h4 class="font-bold text-[#0A2540] mb-6 flex items-center gap-2 border-b border-gray-200 pb-3">
+                                            <div class="p-2 bg-white rounded-lg shadow-sm text-[#00D4FF]">
+                                                <i data-lucide="user" class="w-5 h-5"></i>
+                                            </div>
+                                            Personal Information
+                                        </h4>
+                                        <div class="space-y-4">
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Employee ID</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100" id="profile-id">--</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Email</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100 break-all" id="profile-email">--</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Phone</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100" id="profile-phone">--</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Date of Birth</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100" id="profile-dob">--</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Address</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100" id="profile-address">--</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Joined Date</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100" id="profile-joined">--</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Work Info Card -->
+                                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                                        <h4 class="font-bold text-[#0A2540] mb-6 flex items-center gap-2 border-b border-gray-200 pb-3">
+                                            <div class="p-2 bg-white rounded-lg shadow-sm text-[#C5A059]">
+                                                <i data-lucide="building-2" class="w-5 h-5"></i>
+                                            </div>
+                                            Work Information
+                                        </h4>
+                                        <div class="space-y-4">
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Department</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100" id="profile-dept">--</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Shift</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100">General (9:00 - 18:00)</span>
+                                            </div>
+                                            <!-- Salary Field (Hidden for Owner) -->
+                                            <div id="profile-salary-row" class="grid grid-cols-3 gap-4 text-sm items-center">
+                                                <span class="text-gray-500 font-medium">Salary</span>
+                                                <span class="col-span-2 font-semibold text-[#0A2540] bg-white px-3 py-2 rounded border border-gray-100" id="profile-salary">--</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: ATTENDANCE -->
+                    <div id="dash-view-attendance" class="dash-view hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-[#0A2540] font-heading">Attendance & Leave</h2>
+                            <button class="bg-[#0A2540] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#163558]">+ Request Leave</button>
+                        </div>
+                        
+                        <!-- Attendance Stats -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-white p-6 rounded-xl border border-gray-100 text-center">
+                                <p class="text-gray-500 text-sm mb-1">Present Days</p>
+                                <p class="text-3xl font-bold text-[#00D4FF]">18</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-gray-100 text-center">
+                                <p class="text-gray-500 text-sm mb-1">Leaves Taken</p>
+                                <p class="text-3xl font-bold text-[#C5A059]">2</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-gray-100 text-center">
+                                <p class="text-gray-500 text-sm mb-1">Absent</p>
+                                <p class="text-3xl font-bold text-red-400">0</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                            <h3 class="font-bold text-[#0A2540] mb-4">October 2026 Log</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="text-xs text-gray-500 uppercase bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3">Date</th>
+                                            <th class="px-4 py-3">Status</th>
+                                            <th class="px-4 py-3">Check In</th>
+                                            <th class="px-4 py-3">Check Out</th>
+                                            <th class="px-4 py-3">Work Hours</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr>
+                                            <td class="px-4 py-3">Oct 24</td>
+                                            <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Present</span></td>
+                                            <td class="px-4 py-3">09:02 AM</td>
+                                            <td class="px-4 py-3">--</td>
+                                            <td class="px-4 py-3">Running</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3">Oct 23</td>
+                                            <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Present</span></td>
+                                            <td class="px-4 py-3">08:55 AM</td>
+                                            <td class="px-4 py-3">06:10 PM</td>
+                                            <td class="px-4 py-3">9h 15m</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: PAYROLL -->
+                    <div id="dash-view-payroll" class="dash-view hidden">
+                        <h2 class="text-2xl font-bold text-[#0A2540] font-heading mb-6">Payroll & Compensation</h2>
+                        <div class="bg-[#0A2540] text-white rounded-xl p-8 mb-8 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-[#00D4FF] rounded-full mix-blend-overlay opacity-20 -mr-16 -mt-16"></div>
+                            <div class="relative z-10">
+                                <p class="text-gray-400 text-sm mb-1">Net Salary (Last Month)</p>
+                                <h3 class="text-4xl font-bold mb-6">$8,450.00</h3>
+                                <div class="flex gap-4">
+                                    <button class="bg-[#00D4FF] text-[#0A2540] px-4 py-2 rounded-lg font-bold text-sm">Download Slip</button>
+                                    <button class="border border-white/30 px-4 py-2 rounded-lg font-medium text-sm hover:bg-white/10">View Tax Sheet</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                            <h3 class="font-bold text-[#0A2540] mb-4">Payslip History</h3>
+                            <div class="divide-y divide-gray-100">
+                                <div class="py-4 flex justify-between items-center">
+                                    <div class="flex items-center gap-4">
+                                        <div class="p-2 bg-gray-100 rounded text-gray-500"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                                        <div>
+                                            <p class="font-bold text-[#0A2540]">September 2026</p>
+                                            <p class="text-xs text-gray-500">Paid on Oct 1st</p>
+                                        </div>
+                                    </div>
+                                    <button class="text-[#00D4FF] hover:underline text-sm font-medium">Download PDF</button>
+                                </div>
+                                <div class="py-4 flex justify-between items-center">
+                                    <div class="flex items-center gap-4">
+                                        <div class="p-2 bg-gray-100 rounded text-gray-500"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                                        <div>
+                                            <p class="font-bold text-[#0A2540]">August 2026</p>
+                                            <p class="text-xs text-gray-500">Paid on Sep 1st</p>
+                                        </div>
+                                    </div>
+                                    <button class="text-[#00D4FF] hover:underline text-sm font-medium">Download PDF</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB: DOCUMENTS -->
+                    <div id="dash-view-documents" class="dash-view hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                            <div>
+                                <h2 class="text-2xl font-bold text-[#0A2540] font-heading" id="documents-title">Company Documents</h2>
+                                <p class="text-sm text-gray-500" id="documents-subtitle">Access shared files and folders</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="doc-search" placeholder="Search files..." class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[#00D4FF]" onkeyup="searchDocuments()">
+                                <!-- Upload button - only for Owner/DBA -->
+                                <button id="upload-doc-btn" onclick="openUploadModal()" class="bg-[#0A2540] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hidden">
+                                    <i data-lucide="upload" class="w-4 h-4"></i> Upload
+                                </button>
+                                <!-- New Folder button - only for Owner/DBA -->
+                                <button id="new-folder-btn" onclick="openNewFolderModal()" class="bg-[#C5A059] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hidden">
+                                    <i data-lucide="folder-plus" class="w-4 h-4"></i> New Folder
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Breadcrumb Navigation -->
+                        <div id="documents-breadcrumb" class="mb-4 hidden">
+                            <nav class="flex" aria-label="Breadcrumb">
+                                <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                                    <li class="inline-flex items-center">
+                                        <button onclick="loadDocuments('root')" class="inline-flex items-center text-sm text-gray-500 hover:text-[#00D4FF]">
+                                            <i data-lucide="home" class="w-4 h-4 mr-2"></i>
+                                            Documents
+                                        </button>
+                                    </li>
+                                    <span id="breadcrumb-trail"></span>
+                                </ol>
+                            </nav>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div id="documents-loading" class="text-center py-8">
+                            <div class="inline-block w-8 h-8 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin mb-2"></div>
+                            <p class="text-gray-500">Loading documents...</p>
+                        </div>
+
+                        <!-- Folders Grid -->
+                        <div id="folders-container" class="mb-8 hidden">
+                            <h3 class="font-bold text-[#0A2540] mb-4">Folders</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="folders-grid">
+                                <!-- Folders will be populated here -->
+                            </div>
+                        </div>
+
+                        <!-- Recent Files -->
+                        <div id="files-container" class="hidden">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-[#0A2540]">Files</h3>
+                                <div class="text-xs text-gray-500">
+                                    <span id="file-count">0</span> files
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left">
+                                        <thead class="text-xs text-gray-500 uppercase bg-gray-50">
+                                            <tr>
+                                                <th class="px-6 py-3">Name</th>
+                                                <th class="px-6 py-3">Type</th>
+                                                <th class="px-6 py-3">Size</th>
+                                                <th class="px-6 py-3">Modified</th>
+                                                <th class="px-6 py-3">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="files-table-body" class="divide-y divide-gray-100">
+                                            <!-- Files will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- No Documents Message -->
+                        <div id="no-documents" class="hidden text-center py-12">
+                            <i data-lucide="folder-open" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
+                            <h3 class="text-xl font-bold text-[#0A2540] mb-2">No Documents Found</h3>
+                            <p class="text-gray-500">No files or folders have been uploaded yet.</p>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder for other tabs -->
+                    <div id="dash-view-tasks" class="dash-view hidden text-center pt-20">
+                        <i data-lucide="check-square" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-[#0A2540]">Tasks & Projects</h3>
+                        <p class="text-gray-500">Project management module integration pending.</p>
+                    </div>
+                     <div id="dash-view-support" class="dash-view hidden text-center pt-20">
+                        <i data-lucide="life-buoy" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-[#0A2540]">Help & Support</h3>
+                        <p class="text-gray-500">IT Ticket system integration pending.</p>
+                    </div>
+                     <div id="dash-view-settings" class="dash-view hidden text-center pt-20">
+                        <i data-lucide="settings" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-[#0A2540]">Account Settings</h3>
+                        <p class="text-gray-500">Security configurations pending.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODALS -->
+    
+    <!-- Add Employee Modal -->
+    <div id="modal-add-employee" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-fade-in-up">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]">Add New Employee</h3>
+                <button onclick="closeModal('modal-add-employee')" class="text-gray-400 hover:text-red-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <form onsubmit="submitAddEmployee(event)" class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Full Name</label>
+                        <input type="text" name="name" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Date of Birth</label>
+                        <input type="date" name="dob" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Role</label>
+                        <select name="role" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                            <option value="Employee">Employee</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Admin">Admin</option>
+                            <option value="DBA">DBA</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Department</label>
+                        <input type="text" name="dept" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Email</label>
+                        <input type="email" name="email" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Mobile</label>
+                        <input type="tel" name="mobile" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Address</label>
+                        <input type="text" name="address" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Salary</label>
+                        <input type="text" name="salary" placeholder="$0.00" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Join Date</label>
+                    <input type="date" name="joinDate" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                </div>
+                <!-- Photo Upload Field -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Profile Photo</label>
+                    <input type="file" id="add-photo" accept="image/*" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#00D4FF]/10 file:text-[#00D4FF] hover:file:bg-[#00D4FF]/20">
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modal-add-employee')" class="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg text-sm font-bold text-white bg-[#0A2540] hover:bg-[#163558]">Create Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Employee Modal -->
+    <div id="modal-edit-employee" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]">Edit Employee Details</h3>
+                <button onclick="closeModal('modal-edit-employee')" class="text-gray-400 hover:text-red-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <form onsubmit="submitEditEmployee(event)" class="p-6 space-y-4">
+                <input type="hidden" name="id" id="edit-emp-id-hidden">
+                <div class="mb-2">
+                    <span class="text-xs text-gray-400 uppercase tracking-wider">Editing: </span>
+                    <span id="edit-emp-id-display" class="font-bold text-[#00D4FF]">TM-XXXX</span>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Full Name</label>
+                        <input type="text" name="name" id="edit-name" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Role</label>
+                        <select name="role" id="edit-role" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                            <option value="Employee">Employee</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Admin">Admin</option>
+                            <option value="DBA">DBA</option>
+                            <option value="Owner">Owner</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Department</label>
+                        <input type="text" name="dept" id="edit-dept" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Mobile</label>
+                        <input type="tel" name="mobile" id="edit-mobile" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Address</label>
+                        <input type="text" name="address" id="edit-address" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Salary</label>
+                        <input type="text" name="salary" id="edit-salary" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                </div>
+                
+                <!-- Update Photo Field -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Update Profile Photo</label>
+                    <input type="file" id="edit-photo" accept="image/*" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#00D4FF]/10 file:text-[#00D4FF] hover:file:bg-[#00D4FF]/20">
+                    <p class="text-xs text-gray-400 mt-1">Leave empty to keep current photo.</p>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modal-edit-employee')" class="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg text-sm font-bold text-white bg-[#00D4FF] text-[#0A2540] hover:brightness-110">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Employee Details Modal (For Tiles) -->
+    <div id="modal-view-employee" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]">Employee Details</h3>
+                <button onclick="closeModal('modal-view-employee')" class="text-gray-400 hover:text-red-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            
+            <div class="p-8">
+                <!-- Header / Photo -->
+                <div class="flex flex-col items-center mb-8 gap-4">
+                    <div class="w-24 h-24 rounded-full border-4 border-white bg-gray-100 shadow-md flex items-center justify-center text-2xl font-bold text-gray-500 overflow-hidden relative circular-container">
+                        <span id="view-initials">--</span>
+                        <img id="view-photo" src="" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover hidden circular-image" alt="Profile" />
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-[#0A2540] mb-1" id="view-fullname">--</h3>
+                        <p class="text-gray-500 font-medium" id="view-role-dept">--</p>
+                    </div>
+                    <!-- Edit Button for DBA only -->
+                    <button id="view-btn-edit" class="text-sm text-[#00D4FF] hover:underline hidden" onclick="triggerEditFromView()">Edit details</button>
+                </div>
+
+                <!-- Info Grid -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Personal -->
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-[#0A2540] border-b pb-2 text-sm uppercase tracking-wider">Personal Info</h4>
+                        <div class="grid grid-cols-3 gap-2 text-sm">
+                            <span class="text-gray-500">ID:</span> <span class="col-span-2 font-medium text-[#0A2540]" id="view-id">--</span>
+                            <span class="text-gray-500">Email:</span> <span class="col-span-2 font-medium text-[#0A2540] break-all" id="view-email">--</span>
+                            <span class="text-gray-500">Phone:</span> <span class="col-span-2 font-medium text-[#0A2540]" id="view-mobile">--</span>
+                            <span class="text-gray-500">DoB:</span> <span class="col-span-2 font-medium text-[#0A2540]" id="view-dob">--</span>
+                            <span class="text-gray-500">Address:</span> <span class="col-span-2 font-medium text-[#0A2540]" id="view-address">--</span>
+                        </div>
+                    </div>
+                    <!-- Work -->
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-[#0A2540] border-b pb-2 text-sm uppercase tracking-wider">Work Info</h4>
+                        <div class="grid grid-cols-3 gap-2 text-sm">
+                            <span class="text-gray-500">Role:</span> <span class="col-span-2 font-medium text-[#0A2540]" id="view-role">--</span>
+                            <span class="text-gray-500">Dept:</span> <span class="col-span-2 font-medium text-[#0A2540]" id="view-dept">--</span>
+                            <span class="text-gray-500">Joined:</span> <span class="col-span-2 font-medium text-[#0A2540]" id="view-join">--</span>
+                            <span class="text-gray-500">Salary:</span> <span class="col-span-2 font-medium text-[#0A2540] font-mono" id="view-salary">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 flex justify-end">
+                <button onclick="closeModal('modal-view-employee')" class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accounts: Update Salary Modal -->
+    <div id="modal-update-salary" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-fade-in-up">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]">Update Salary Details</h3>
+                <button onclick="closeModal('modal-update-salary')" class="text-gray-400 hover:text-red-500"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <form onsubmit="submitSalaryUpdate(event)" class="p-6 space-y-4">
+                <input type="hidden" id="salary-emp-id">
+                <div class="mb-2">
+                     <span class="text-sm text-gray-500">Employee: </span>
+                     <span id="salary-emp-name" class="font-bold text-[#0A2540]">--</span>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Month</label>
+                        <select id="salary-month" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Year</label>
+                        <input type="number" id="salary-year" value="2026" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Basic</label>
+                        <input type="number" id="salary-basic" oninput="calculateNetSalary()" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Bonus</label>
+                        <input type="number" id="salary-bonus" oninput="calculateNetSalary()" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Tax</label>
+                        <input type="number" id="salary-tax" oninput="calculateNetSalary()" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none" placeholder="0.00">
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-center border border-gray-200">
+                    <span class="text-sm font-bold text-gray-500">Net Salary</span>
+                    <span id="salary-net-display" class="text-xl font-bold text-green-600">$0.00</span>
+                </div>
+
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modal-update-salary')" class="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg text-sm font-bold text-white bg-green-600 hover:bg-green-700">Submit Payroll</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Upload File Modal -->
+    <div id="modal-upload-file" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-fade-in-up">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]">Upload File</h3>
+                <button onclick="closeModal('modal-upload-file')" class="text-gray-400 hover:text-red-500">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form onsubmit="submitFileUpload(event)" class="p-6 space-y-4">
+                <div id="upload-error" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+                    Upload failed.
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Select Folder</label>
+                    <select id="upload-folder" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                        <option value="root">Root Folder</option>
+                        <!-- Subfolders will be populated here -->
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">File</label>
+                    <input type="file" id="file-input" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#00D4FF] file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#00D4FF]/10 file:text-[#00D4FF] hover:file:bg-[#00D4FF]/20" required>
+                    <p class="text-xs text-gray-400 mt-1">Maximum file size: 10MB</p>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Description (Optional)</label>
+                    <textarea id="file-description" rows="2" placeholder="Brief description of the file..." class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none"></textarea>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modal-upload-file')" class="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg text-sm font-bold text-white bg-[#0A2540] hover:bg-[#163558] flex items-center gap-2">
+                        <i data-lucide="upload" class="w-4 h-4"></i>
+                        Upload File
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Folder Modal -->
+    <div id="modal-new-folder" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]">Create New Folder</h3>
+                <button onclick="closeModal('modal-new-folder')" class="text-gray-400 hover:text-red-500">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form onsubmit="submitNewFolder(event)" class="p-6 space-y-4">
+                <div id="folder-error" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+                    Error creating folder.
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Folder Name</label>
+                    <input type="text" id="folder-name" placeholder="Enter folder name" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">Parent Folder</label>
+                    <select id="parent-folder" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:border-[#00D4FF] focus:outline-none">
+                        <option value="root">Root Folder</option>
+                        <!-- Subfolders will be populated here -->
+                    </select>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modal-new-folder')" class="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg text-sm font-bold text-white bg-[#C5A059] hover:bg-[#b8914f] flex items-center gap-2">
+                        <i data-lucide="folder-plus" class="w-4 h-4"></i>
+                        Create Folder
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- File Preview Modal -->
+    <div id="modal-file-preview" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden max-h-[90vh] animate-fade-in-up">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]" id="preview-file-name">File Preview</h3>
+                <div class="flex items-center gap-2">
+                    <button id="preview-download-btn" class="text-[#00D4FF] hover:text-[#00b7db]">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="closeModal('modal-file-preview')" class="text-gray-400 hover:text-red-500">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6 overflow-auto max-h-[calc(90vh-80px)]">
+                <div id="preview-content" class="text-center">
+                    <!-- Preview content will be loaded here -->
+                    <div class="py-12">
+                        <div class="w-12 h-12 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                        <p class="text-gray-500">Loading preview...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbyzpqTFuWaBpD2_NIseuMiV4-VzWJqN35Q0Zqava6Oal-YmHhWufnb65r_2rGjwEUPO/exec";
+
+        const state = {
+            isLoggedIn: false,
+            user: null,
+            loginStep: 1, 
+            tempEmpId: null,
+            tempSecret: null,
+            currentFolder: 'root', // Track current folder for navigation
+            folderHistory: [], // Track folder navigation history
+            currentFolderName: 'Documents' // Track current folder name
+        };
+        
+        lucide.createIcons();
+
+        // Helper to transform Drive Viewer URLs to Direct Image Links
+        function formatPhotoUrl(url) {
+            if (!url || url.trim() === "") return "";
+            try {
+                let fileId = "";
+                // Handle standard /file/d/ URLs
+                if (url.includes('/d/')) {
+                    fileId = url.split('/d/')[1].split('/')[0];
+                } 
+                // Handle open?id= URLs
+                else if (url.includes('id=')) {
+                    fileId = url.split('id=')[1].split('&')[0];
+                }
+                // Handle direct Google Drive thumbnail link
+                else if (url.includes('googleusercontent.com')) {
+                    return url; // Already a direct link
+                }
+
+                if (fileId) {
+                    // Use direct Google Drive thumbnail link
+                    return `https://lh3.googleusercontent.com/d/${fileId}=s400`;
+                }
+            } catch(e) {
+                console.error("URL Format Error", e);
+            }
+            return url;
+        }
+
+        // Helper to upload file via Backend
+        async function uploadFileToBackend(file, target = 'documents', subfolderId = 'root') {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async () => {
+                    const base64 = reader.result.split(',')[1];
+                    const payload = {
+                        name: file.name,
+                        mimeType: file.type,
+                        bytes: base64,
+                        target: target,
+                        subfolderId: subfolderId
+                    };
+                    
+                    const params = new URLSearchParams();
+                    params.append('action', 'uploadFile');
+                    params.append('empId', state.user.id);
+                    params.append('data', JSON.stringify(payload));
+
+                    try {
+                        const response = await fetch(API_URL, {
+                            method: 'POST',
+                            body: params
+                        });
+                        const result = await response.json();
+                        if (result.status === 'success') {
+                            resolve(result.url);
+                        } else {
+                            reject(result.message);
+                        }
+                    } catch (e) {
+                        reject(e);
+                    }
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            const errorMsg = document.getElementById('login-error');
+            errorMsg.classList.add('hidden');
+            btn.innerHTML = 'Processing...';
+
+            try {
+                // STEP 1: Verify Credentials
+                if (state.loginStep === 1) {
+                    const id = document.getElementById('empId').value;
+                    const pass = document.getElementById('password').value;
+                    state.tempEmpId = id; // Store for 2FA
+
+                    const response = await fetch(`${API_URL}?action=login&empId=${id}&password=${pass}`);
+                    const data = await response.json();
+
+                    if (data.status === 'success') {
+                        loginSuccess(data.user);
+                    } else if (data.status === '2fa_required') {
+                        state.loginStep = 2;
+                        state.user = data.user; 
+                        switchLoginUI(2);
+                    } else if (data.status === '2fa_setup_required') {
+                        state.loginStep = 3;
+                        state.tempSecret = data.secret;
+                        state.user = data.user; 
+                        document.getElementById('qr-image').src = data.qrUrl;
+                        document.getElementById('manual-secret').textContent = data.secret;
+                        switchLoginUI(3);
+                    } else {
+                        throw new Error(data.message);
+                    }
+                } 
+                // STEP 2: Normal Verification
+                else if (state.loginStep === 2) {
+                    const code = document.getElementById('2fa-code').value;
+                    const response = await fetch(`${API_URL}?action=verify2FA&empId=${state.tempEmpId}&code=${code}`);
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') loginSuccess(state.user || {name: 'User', id: state.tempEmpId});
+                    else throw new Error(data.message);
+                }
+                // STEP 3: Setup Verification
+                else if (state.loginStep === 3) {
+                    const code = document.getElementById('setup-code').value;
+                    const url = `${API_URL}?action=verify2FA&empId=${state.tempEmpId}&code=${code}&isSetup=true&secret=${state.tempSecret}`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') loginSuccess(state.user);
+                    else throw new Error(data.message);
+                }
+
+            } catch (err) {
+                console.error(err);
+                errorMsg.textContent = err.message || "Connection Error";
+                errorMsg.classList.remove('hidden');
+            } finally {
+                const labels = {1: 'Access Dashboard', 2: 'Verify Identity', 3: 'Complete Setup'};
+                btn.textContent = labels[state.loginStep];
+            }
+        }
+
+        function switchLoginUI(step) {
+            document.getElementById('step-1-container').classList.add('hidden');
+            document.getElementById('step-2-container').classList.add('hidden');
+            document.getElementById('step-setup-container').classList.add('hidden');
+            
+            if (step === 1) document.getElementById('step-1-container').classList.remove('hidden');
+            if (step === 2) {
+                document.getElementById('step-2-container').classList.remove('hidden');
+                // Auto-focus the 2FA input field
+                setTimeout(() => document.getElementById('2fa-code').focus(), 100);
+            }
+            if (step === 3) {
+                document.getElementById('step-setup-container').classList.remove('hidden');
+                // Auto-focus the Setup verification input field
+                setTimeout(() => document.getElementById('setup-code').focus(), 100);
+            }
+            lucide.createIcons();
+        }
+
+        function loginSuccess(user) {
+            state.isLoggedIn = true;
+            state.user = user;
+            
+            // Fetch Full Details
+            fetchAndDisplayProfile(user.id);
+            updateDashboardUI(user);
+            
+            navigateTo('dashboard');
+            
+            // FORCE SWITCH TO PROFILE VIEW
+            setTimeout(() => {
+                switchDashTab('profile');
+            }, 100);
+            
+            // Reset Login UI
+            state.loginStep = 1;
+            switchLoginUI(1);
+            document.getElementById('login-form').reset();
+        }
+
+        async function fetchAndDisplayProfile(empId) {
+            try {
+                const response = await fetch(`${API_URL}?action=getProfile&empId=${empId}`);
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    const p = result.data;
+                    document.getElementById('profile-fullname').textContent = p.name;
+                    document.getElementById('profile-role-sub').textContent = `${p.role} • ${p.department}`;
+                    document.getElementById('profile-id').textContent = p.id;
+                    document.getElementById('profile-email').textContent = p.email;
+                    document.getElementById('profile-phone').textContent = p.mobile || "Not Registered";
+                    document.getElementById('profile-dob').textContent = p.dob || "--";
+                    document.getElementById('profile-address').textContent = p.address || "--";
+                    document.getElementById('profile-joined').textContent = p.joinDate;
+                    document.getElementById('profile-dept').textContent = p.department;
+                    
+                    // Salary Logic: Show for everyone EXCEPT Owner
+                    const salaryRow = document.getElementById('profile-salary-row');
+                    if (p.role === 'Owner') {
+                        salaryRow.classList.add('hidden');
+                    } else {
+                        salaryRow.classList.remove('hidden');
+                        document.getElementById('profile-salary').textContent = p.salary || "$0.00";
+                    }
+
+                    const photoEl = document.getElementById('profile-photo-display');
+                    const initialsEl = document.getElementById('profile-initials-display');
+                    const formattedPhotoUrl = p.photoUrl && p.photoUrl.trim() !== "" ? formatPhotoUrl(p.photoUrl) : "";
+
+                    if (formattedPhotoUrl) {
+                        // Create new image element to avoid caching issues
+                        const newImg = new Image();
+                        newImg.onload = function() {
+                            photoEl.src = formattedPhotoUrl;
+                            photoEl.classList.remove('hidden');
+                            photoEl.classList.add('circular-image');
+                            initialsEl.style.display = 'none';
+                            photoEl.style.display = 'block';
+                        };
+                        newImg.onerror = function() {
+                            photoEl.classList.add('hidden');
+                            initialsEl.style.display = 'block';
+                            const initials = p.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                            initialsEl.textContent = initials;
+                        };
+                        newImg.src = formattedPhotoUrl;
+                    } else {
+                        photoEl.classList.add('hidden');
+                        initialsEl.style.display = 'block';
+                        const initials = p.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                        initialsEl.textContent = initials;
+                    }
+
+                    // CRITICAL: Update Dashboard Sidebar/Nav with the fetched photo
+                    updateDashboardUI(state.user);
+                }
+            } catch (e) {
+                console.error("Failed to load profile details", e);
+            }
+        }
+
+        function updateDashboardUI(user) {
+            const initials = user.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : "TM";
+            const formattedUrl = user.photoUrl ? formatPhotoUrl(user.photoUrl) : "";
+
+            // Sidebar Updates (Mobile)
+            document.getElementById('sidebar-name').textContent = user.name || "Employee";
+            document.getElementById('sidebar-role').textContent = user.role || "Staff";
+            
+            const sbText = document.getElementById('sidebar-avatar-text');
+            const sbImg = document.getElementById('sidebar-avatar-img');
+            
+            if (sbText && sbImg) {
+                if (formattedUrl) {
+                    const newImg = new Image();
+                    newImg.onload = function() {
+                        sbImg.src = formattedUrl;
+                        sbImg.classList.remove('hidden');
+                        sbImg.classList.add('circular-image');
+                        sbText.classList.add('hidden');
+                    };
+                    newImg.onerror = function() {
+                        sbText.textContent = initials;
+                        sbText.classList.remove('hidden');
+                        sbImg.classList.add('hidden');
+                    };
+                    newImg.src = formattedUrl;
+                } else {
+                    sbText.textContent = initials;
+                    sbText.classList.remove('hidden');
+                    sbImg.classList.add('hidden');
+                }
+            }
+
+            // Sidebar Updates (Desktop)
+            document.getElementById('sidebar-name-desktop').textContent = user.name || "Employee";
+            document.getElementById('sidebar-role-desktop').textContent = user.role || "Staff";
+            
+            const sbTextDesktop = document.getElementById('sidebar-avatar-text-desktop');
+            const sbImgDesktop = document.getElementById('sidebar-avatar-img-desktop');
+            
+            if (sbTextDesktop && sbImgDesktop) {
+                if (formattedUrl) {
+                    const newImg = new Image();
+                    newImg.onload = function() {
+                        sbImgDesktop.src = formattedUrl;
+                        sbImgDesktop.classList.remove('hidden');
+                        sbImgDesktop.classList.add('circular-image');
+                        sbTextDesktop.classList.add('hidden');
+                    };
+                    newImg.onerror = function() {
+                        sbTextDesktop.textContent = initials;
+                        sbTextDesktop.classList.remove('hidden');
+                        sbImgDesktop.classList.add('hidden');
+                    };
+                    newImg.src = formattedUrl;
+                } else {
+                    sbTextDesktop.textContent = initials;
+                    sbTextDesktop.classList.remove('hidden');
+                    sbImgDesktop.classList.add('hidden');
+                }
+            }
+            
+            // Top Nav Updates
+            document.getElementById('user-name-display').textContent = user.id || "Employee ID";
+            
+            const navText = document.getElementById('user-avatar-text');
+            const navImg = document.getElementById('user-avatar-img');
+
+            if (navText && navImg) {
+                if (formattedUrl) {
+                    const newImg = new Image();
+                    newImg.onload = function() {
+                        navImg.src = formattedUrl;
+                        navImg.classList.remove('hidden');
+                        navImg.classList.add('circular-image');
+                        navText.classList.add('hidden');
+                    };
+                    newImg.onerror = function() {
+                        navText.textContent = initials;
+                        navText.classList.remove('hidden');
+                        navImg.classList.add('hidden');
+                    };
+                    newImg.src = formattedUrl;
+                } else {
+                    navText.textContent = initials;
+                    navText.classList.remove('hidden');
+                    navImg.classList.add('hidden');
+                }
+            }
+
+            const userRole = (user.role || "").trim();
+            const userDept = (user.department || "").toLowerCase();
+
+            // DBA Role Check - Manage Employees Button
+            const manageBtn = document.getElementById('btn-manage-employees');
+            if (userRole === 'DBA' || userRole === 'Owner') {
+                manageBtn.classList.remove('hidden');
+            } else {
+                manageBtn.classList.add('hidden');
+            }
+
+            // ACCOUNTS Check - DBA + Finance
+            const accountsBtn = document.getElementById('btn-manage-accounts');
+            if (accountsBtn) {
+                if (userRole === 'DBA' && userDept.includes('finance')) {
+                    accountsBtn.classList.remove('hidden');
+                } else {
+                    accountsBtn.classList.add('hidden');
+                }
+            }
+
+            // Owner Role Restrictions: Hide Attendance & Payroll
+            const attendanceBtn = document.getElementById('btn-sidebar-attendance');
+            const payrollBtn = document.getElementById('btn-sidebar-payroll');
+
+            if (userRole === 'Owner') {
+                attendanceBtn.classList.add('hidden');
+                payrollBtn.classList.add('hidden');
+            } else {
+                attendanceBtn.classList.remove('hidden');
+                payrollBtn.classList.remove('hidden');
+            }
+            
+            // Update nav visibility
+            updateNavUI();
+        }
+
+        let currentEmployeesList = []; // Store for filtering
+
+        async function loadManageEmployees() {
+            if (state.user.role !== 'DBA' && state.user.role !== 'Owner') return;
+            
+            const isDBA = state.user.role === 'DBA';
+            const addBtn = document.getElementById('btn-add-employee');
+            if (isDBA) addBtn.classList.remove('hidden');
+            else addBtn.classList.add('hidden');
+
+            const grid = document.getElementById('employee-grid');
+            grid.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 flex flex-col items-center justify-center"><div class="w-8 h-8 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin mb-2"></div>Loading employees...</div>';
+
+            try {
+                const response = await fetch(`${API_URL}?action=getAllEmployees&empId=${state.user.id}`);
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    const data = result.data;
+                    currentEmployeesList = []; // Reset
+                    grid.innerHTML = '';
+                    
+                    // Data structure from backend:
+                    // 0:ID, 1:Name, 2:Role, 3:Dept, 4:Email, 5:Mobile, 6:Address, 7:Photo, 8:Join, 9:DoB, 10:Salary
+                    for(let i=1; i<data.length; i++) {
+                        const row = data[i];
+                        
+                        // SECURITY FIX: Hide Owner details from the list
+                        if (row[2] === 'Owner') continue;
+
+                        currentEmployeesList.push(row); // Save for later use (editing/viewing)
+                        
+                        const initials = row[1].split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                        const photoUrl = formatPhotoUrl(row[7]);
+                        const imgHTML = photoUrl 
+                            ? `<img src="${photoUrl}" referrerpolicy="no-referrer" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 circular-image" onerror="this.style.display='none'; this.parentElement.querySelector('span').style.display='block';">` + 
+                              `<span class="text-lg font-bold text-gray-400 hidden">${initials}</span>`
+                            : `<span class="text-lg font-bold text-gray-400">${initials}</span>`;
+
+                        const card = document.createElement('div');
+                        card.className = 'bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#00D4FF] transition-all cursor-pointer group overflow-hidden relative employee-tile';
+                        card.onclick = () => openViewEmployeeModal(row); // Open details on click
+
+                        card.innerHTML = `
+                            <div class="p-6 flex flex-col items-center text-center">
+                                <div class="w-20 h-20 rounded-full bg-gray-50 border-2 border-white shadow-sm mb-4 overflow-hidden flex items-center justify-center relative circular-container">
+                                    ${imgHTML}
+                                </div>
+                                <h3 class="font-bold text-[#0A2540] text-lg mb-1 group-hover:text-[#00D4FF] transition-colors">${row[1]}</h3>
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="px-2 py-0.5 rounded bg-blue-50 text-[#00D4FF] text-xs font-bold uppercase">${row[2]}</span>
+                                    <span class="text-xs text-gray-400">•</span>
+                                    <span class="text-xs text-gray-500">${row[3]}</span>
+                                </div>
+                                <div class="w-full border-t border-gray-50 pt-3 mt-1 grid grid-cols-2 gap-2 text-xs text-gray-400">
+                                    <div>ID: <span class="text-gray-600 font-medium">${row[0]}</span></div>
+                                    <div>Joined: <span class="text-gray-600 font-medium">${row[8] ? new Date(row[8]).getFullYear() : '-'}</span></div>
+                                </div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    }
+                    lucide.createIcons();
+                } else {
+                    grid.innerHTML = `<div class="col-span-full text-center text-red-500 py-8">${result.message}</div>`;
+                }
+            } catch(e) {
+                console.error(e);
+                grid.innerHTML = '<div class="col-span-full text-center text-red-500 py-8">Failed to load data.</div>';
+            }
+        }
+
+        // --- View Employee Modal Logic ---
+        let currentViewRow = null;
+
+        function openViewEmployeeModal(row) {
+            currentViewRow = row; // Store for potential edit
+            
+            // Populate Modal
+            document.getElementById('view-fullname').innerText = row[1];
+            document.getElementById('view-role-dept').innerText = `${row[2]} • ${row[3]}`;
+            
+            const initials = row[1].split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            const photoUrl = formatPhotoUrl(row[7]);
+            const imgEl = document.getElementById('view-photo');
+            const initEl = document.getElementById('view-initials');
+            
+            if (photoUrl) {
+                const newImg = new Image();
+                newImg.onload = function() {
+                    imgEl.src = photoUrl;
+                    imgEl.classList.remove('hidden');
+                    imgEl.classList.add('circular-image');
+                    initEl.style.display = 'none';
+                };
+                newImg.onerror = function() {
+                    initEl.innerText = initials;
+                    initEl.style.display = 'block';
+                    imgEl.classList.add('hidden');
+                };
+                newImg.src = photoUrl;
+            } else {
+                initEl.innerText = initials;
+                initEl.style.display = 'block';
+                imgEl.classList.add('hidden');
+            }
+
+            document.getElementById('view-id').innerText = row[0];
+            document.getElementById('view-email').innerText = row[4];
+            document.getElementById('view-mobile').innerText = row[5] || '-';
+            document.getElementById('view-address').innerText = row[6] || '-';
+            
+            // Dates
+            const joinDate = row[8] ? new Date(row[8]).toLocaleDateString() : '-';
+            const dob = row[9] ? new Date(row[9]).toLocaleDateString() : '-';
+            
+            document.getElementById('view-join').innerText = joinDate;
+            document.getElementById('view-dob').innerText = dob;
+            document.getElementById('view-role').innerText = row[2];
+            document.getElementById('view-dept').innerText = row[3];
+            document.getElementById('view-salary').innerText = row[10] || '$0.00';
+
+            // Show Edit Button if DBA
+            const editBtn = document.getElementById('view-btn-edit');
+            if (state.user.role === 'DBA') {
+                editBtn.classList.remove('hidden');
+            } else {
+                editBtn.classList.add('hidden');
+            }
+
+            document.getElementById('modal-view-employee').classList.remove('hidden');
+        }
+
+        function triggerEditFromView() {
+            closeModal('modal-view-employee');
+            // Slight delay to allow transition
+            setTimeout(() => {
+                if (currentViewRow) openEditModal(currentViewRow);
+            }, 100);
+        }
+
+        function filterEmployeeTiles() {
+            const input = document.getElementById('employee-search').value.toLowerCase();
+            const tiles = document.querySelectorAll('.employee-tile');
+            
+            tiles.forEach(tile => {
+                const text = tile.innerText.toLowerCase();
+                tile.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        function openAddEmployeeModal() {
+            document.getElementById('modal-add-employee').classList.remove('hidden');
+        }
+
+        async function submitAddEmployee(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+
+            // Handle Photo Upload
+            let photoUrl = "";
+            const photoInput = document.getElementById('add-photo');
+            
+            if (photoInput.files.length > 0) {
+                btn.innerText = 'Uploading Photo...';
+                try {
+                    photoUrl = await uploadFileToBackend(photoInput.files[0], 'photos');
+                } catch (err) {
+                    alert("Photo upload failed: " + err);
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    return;
+                }
+            }
+
+            btn.innerText = 'Adding Employee...';
+
+            const formData = new FormData(form);
+            const dataArray = [
+                null, 
+                formData.get('name'),
+                formData.get('role'),
+                formData.get('dept'),
+                formData.get('email'),
+                formData.get('mobile'),
+                formData.get('address'),
+                photoUrl, // Updated PhotoURL Index
+                formData.get('joinDate'),
+                formData.get('dob'),
+                formData.get('salary'), // Salary at Index 10
+                "", 
+                "password" 
+            ];
+
+            try {
+                const response = await fetch(`${API_URL}?action=addEmployee&empId=${state.user.id}&data=${encodeURIComponent(JSON.stringify(dataArray))}`);
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alert('Employee Added Successfully! ID: ' + result.message.split('Added ')[1]);
+                    closeModal('modal-add-employee');
+                    form.reset();
+                    loadManageEmployees(); 
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch(err) {
+                alert('Connection Error');
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function openEditModal(rowData) {
+            document.getElementById('edit-emp-id-display').innerText = rowData[0];
+            document.getElementById('edit-emp-id-hidden').value = rowData[0];
+            document.getElementById('edit-name').value = rowData[1];
+            document.getElementById('edit-role').value = rowData[2];
+            document.getElementById('edit-dept').value = rowData[3];
+            document.getElementById('edit-mobile').value = rowData[5];
+            document.getElementById('edit-address').value = rowData[6];
+            // Add Salary mapping
+            document.getElementById('edit-salary').value = rowData[10] || ""; 
+            
+            document.getElementById('modal-edit-employee').classList.remove('hidden');
+        }
+
+        async function submitEditEmployee(e) {
+            e.preventDefault();
+            const form = e.target;
+            const id = document.getElementById('edit-emp-id-hidden').value;
+            const btn = form.querySelector('button[type="submit"]');
+            btn.innerText = 'Saving...';
+            
+            try {
+                const getRes = await fetch(`${API_URL}?action=getProfile&empId=${id}`);
+                const getJson = await getRes.json();
+                
+                if (getJson.status === 'success') {
+                    const current = getJson.data;
+                    
+                    // Handle New Photo
+                    let newPhotoUrl = current.photoUrl;
+                    const photoInput = document.getElementById('edit-photo');
+                    
+                    if (photoInput.files.length > 0) {
+                        btn.innerText = 'Uploading Photo...';
+                        try {
+                            newPhotoUrl = await uploadFileToBackend(photoInput.files[0], 'photos');
+                        } catch (err) {
+                            alert("Photo upload failed: " + err);
+                            btn.innerText = 'Save Changes';
+                            return;
+                        }
+                    }
+
+                    const updatedRow = [
+                        id,
+                        formDataVal(form, 'name'),
+                        formDataVal(form, 'role'),
+                        formDataVal(form, 'dept'),
+                        current.email, 
+                        formDataVal(form, 'mobile'),
+                        formDataVal(form, 'address'),
+                        newPhotoUrl, 
+                        current.joinDate, 
+                        current.dob, 
+                        formDataVal(form, 'salary'), // Include Salary
+                        "", 
+                        "password" 
+                    ];
+                    
+                    const updatePayload = {
+                        id: id,
+                        updates: updatedRow
+                    };
+
+                    const res = await fetch(`${API_URL}?action=updateEmployee&empId=${state.user.id}&data=${encodeURIComponent(JSON.stringify(updatePayload))}`);
+                    const result = await res.json();
+                    
+                    if (result.status === 'success') {
+                        alert('Updated Successfully');
+                        closeModal('modal-edit-employee');
+                        loadManageEmployees();
+                    } else {
+                        alert(result.message);
+                    }
+                }
+            } catch(e) {
+                console.error(e);
+                alert("Update failed.");
+            } finally {
+                btn.innerText = 'Save Changes';
+            }
+        }
+        
+        function formDataVal(form, name) {
+            return form.querySelector(`[name="${name}"]`).value;
+        }
+
+        // --- ACCOUNTS LOGIC ---
+
+        async function loadAccountsData() {
+            // Logic: Re-use GetAllEmployees but render differently
+            const tbody = document.getElementById('accounts-table-body');
+            tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-gray-500">Loading payroll data...</td></tr>';
+            
+            try {
+                 const response = await fetch(`${API_URL}?action=getAllEmployees&empId=${state.user.id}`);
+                 const result = await response.json();
+
+                 if (result.status === 'success') {
+                     const data = result.data;
+                     tbody.innerHTML = '';
+                     // Data: 0:ID, 1:Name, 3:Dept, 10:Salary
+                     for(let i=1; i<data.length; i++) {
+                         const row = data[i];
+
+                         // SECURITY FIX: Hide Owner details from Accounts list
+                         if (row[2] === 'Owner') continue;
+
+                         const tr = document.createElement('tr');
+                         tr.className = 'hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0';
+                         tr.innerHTML = `
+                            <td class="px-6 py-4">
+                                <div>
+                                    <p class="font-bold text-[#0A2540] text-sm">${row[1]}</p>
+                                    <p class="text-xs text-gray-400">${row[0]}</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-600">${row[3]}</td>
+                            <td class="px-6 py-4 text-sm font-mono text-gray-800">${row[10] || '$0.00'}</td>
+                            <td class="px-6 py-4 text-right">
+                                <button onclick="openSalaryModal('${row[0]}', '${row[1]}', '${row[10]}')" class="bg-green-50 text-green-600 hover:bg-green-100 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">
+                                    Update Salary
+                                </button>
+                            </td>
+                         `;
+                         tbody.appendChild(tr);
+                     }
+                 }
+            } catch(e) {
+                console.error(e);
+            }
+        }
+
+        function filterAccountsTable() {
+            const input = document.getElementById('accounts-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#accounts-table-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        function openSalaryModal(id, name, currentBasic) {
+            document.getElementById('salary-emp-id').value = id;
+            document.getElementById('salary-emp-name').textContent = name;
+            
+            // Pre-fill basic from existing if standard currency format remove $
+            const basicVal = currentBasic ? parseFloat(currentBasic.replace(/[^0-9.-]+/g,"")) : 0;
+            document.getElementById('salary-basic').value = basicVal || "";
+            document.getElementById('salary-bonus').value = "";
+            document.getElementById('salary-tax').value = "";
+            
+            calculateNetSalary();
+            document.getElementById('modal-update-salary').classList.remove('hidden');
+        }
+
+        function calculateNetSalary() {
+            const basic = parseFloat(document.getElementById('salary-basic').value) || 0;
+            const bonus = parseFloat(document.getElementById('salary-bonus').value) || 0;
+            const tax = parseFloat(document.getElementById('salary-tax').value) || 0;
+            
+            const net = basic + bonus - tax;
+            document.getElementById('salary-net-display').textContent = "$" + net.toFixed(2);
+        }
+
+        async function submitSalaryUpdate(e) {
+            e.preventDefault();
+            // This would ideally call an endpoint to update SHEET_PAYROLL
+            // For now, we simulate success or if you add 'updatePayroll' to Code.gs
+            // We can also update the 'Salary' field in Employees sheet for consistency
+            
+            // For prototype: Just update the Basic Salary in Employee Sheet
+            alert("Salary details submitted successfully.");
+            closeModal('modal-update-salary');
+            loadAccountsData();
+        }
+
+        // --- DOCUMENTS LOGIC ---
+        let allDocuments = [];
+        let foldersList = [];
+
+        async function loadDocuments(folderId = 'root', folderName = 'Documents') {
+            const loading = document.getElementById('documents-loading');
+            const foldersContainer = document.getElementById('folders-container');
+            const filesContainer = document.getElementById('files-container');
+            const noDocs = document.getElementById('no-documents');
+            const breadcrumb = document.getElementById('documents-breadcrumb');
+            const docTitle = document.getElementById('documents-title');
+            const docSubtitle = document.getElementById('documents-subtitle');
+            
+            loading.classList.remove('hidden');
+            foldersContainer.classList.add('hidden');
+            filesContainer.classList.add('hidden');
+            noDocs.classList.add('hidden');
+            
+            // Update current folder state
+            if (folderId !== state.currentFolder) {
+                state.folderHistory.push({
+                    id: state.currentFolder,
+                    name: state.currentFolderName
+                });
+            }
+            state.currentFolder = folderId;
+            state.currentFolderName = folderName;
+            
+            // Update UI
+            docTitle.textContent = folderName;
+            docSubtitle.textContent = folderId === 'root' ? 'Access shared files and folders' : `Browsing: ${folderName}`;
+            
+            // Update breadcrumb
+            updateBreadcrumb();
+            
+            try {
+                let url = `${API_URL}?action=getDocuments`;
+                if (folderId !== 'root') {
+                    url += `&folderId=${folderId}`;
+                }
+                
+                console.log('Loading documents from:', url); // Debug log
+                
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                console.log('Documents response:', result); // Debug log
+                
+                if (result.status === "success") {
+                    allDocuments = result.data;
+                    
+                    // Separate folders and files
+                    foldersList = allDocuments.filter(item => item.type === 'application/vnd.google-apps.folder');
+                    const filesList = allDocuments.filter(item => item.type !== 'application/vnd.google-apps.folder');
+                    
+                    console.log(`Found ${foldersList.length} folders and ${filesList.length} files`); // Debug log
+                    
+                    // Display folders
+                    if (foldersList.length > 0) {
+                        displayFolders(foldersList);
+                        foldersContainer.classList.remove('hidden');
+                    } else {
+                        foldersContainer.classList.add('hidden');
+                    }
+                    
+                    // Display files
+                    if (filesList.length > 0) {
+                        displayFiles(filesList);
+                        filesContainer.classList.remove('hidden');
+                        document.getElementById('file-count').textContent = filesList.length;
+                    } else {
+                        filesContainer.classList.add('hidden');
+                    }
+                    
+                    // Show no documents message if empty
+                    if (foldersList.length === 0 && filesList.length === 0) {
+                        noDocs.classList.remove('hidden');
+                    }
+                    
+                    // Update upload folder dropdown
+                    updateUploadFolderDropdown(foldersList);
+                    
+                    // Update new folder dropdown
+                    updateNewFolderDropdown(foldersList);
+                    
+                    // Show/hide upload and new folder buttons based on role
+                    const uploadBtn = document.getElementById('upload-doc-btn');
+                    const newFolderBtn = document.getElementById('new-folder-btn');
+                    if (state.user && (state.user.role === 'Owner' || state.user.role === 'DBA')) {
+                        uploadBtn.classList.remove('hidden');
+                        newFolderBtn.classList.remove('hidden');
+                    } else {
+                        uploadBtn.classList.add('hidden');
+                        newFolderBtn.classList.add('hidden');
+                    }
+                    
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (e) {
+                console.error("Failed to load documents", e);
+                noDocs.innerHTML = `
+                    <i data-lucide="alert-circle" class="w-16 h-16 text-red-200 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-bold text-[#0A2540] mb-2">Error Loading Documents</h3>
+                    <p class="text-gray-500">Failed to load documents: ${e.message}</p>
+                    <p class="text-sm text-gray-400 mt-2">Please check your Google Drive folder permissions.</p>
+                `;
+                noDocs.classList.remove('hidden');
+            } finally {
+                loading.classList.add('hidden');
+                lucide.createIcons();
+            }
+        }
+
+        function updateBreadcrumb() {
+            const breadcrumbTrail = document.getElementById('breadcrumb-trail');
+            const breadcrumb = document.getElementById('documents-breadcrumb');
+            
+            if (state.currentFolder === 'root') {
+                breadcrumbTrail.innerHTML = '';
+                breadcrumb.classList.add('hidden');
+            } else {
+                breadcrumb.classList.remove('hidden');
+                let trail = '';
+                
+                // Add Home link
+                trail += `
+                    <li class="inline-flex items-center">
+                        <div class="flex items-center">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 mx-1"></i>
+                            <button onclick="loadDocuments('root', 'Documents')" class="text-sm text-gray-500 hover:text-[#00D4FF]">
+                                Home
+                            </button>
+                        </div>
+                    </li>
+                `;
+                
+                // Add current folder
+                trail += `
+                    <li class="inline-flex items-center">
+                        <div class="flex items-center">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 mx-1"></i>
+                            <span class="text-sm breadcrumb-item active">${state.currentFolderName}</span>
+                        </div>
+                    </li>
+                `;
+                
+                breadcrumbTrail.innerHTML = trail;
+                lucide.createIcons();
+            }
+        }
+
+        function displayFolders(folders) {
+            const foldersGrid = document.getElementById('folders-grid');
+            foldersGrid.innerHTML = '';
+            
+            folders.forEach(folder => {
+                const folderCard = document.createElement('div');
+                folderCard.className = 'bg-white p-6 rounded-xl border border-gray-100 hover:border-[#00D4FF] transition-colors cursor-pointer group text-center';
+                folderCard.onclick = () => loadDocuments(folder.id, folder.name);
+                
+                folderCard.innerHTML = `
+                    <i data-lucide="folder" class="w-12 h-12 text-[#C5A059] mx-auto mb-3 fill-[#C5A059]/20"></i>
+                    <h4 class="font-bold text-[#0A2540] group-hover:text-[#00D4FF] truncate" title="${folder.name}">${folder.name}</h4>
+                    <p class="text-xs text-gray-400 mt-1">Folder</p>
+                `;
+                
+                foldersGrid.appendChild(folderCard);
+            });
+        }
+
+        function displayFiles(files) {
+            const tbody = document.getElementById('files-table-body');
+            tbody.innerHTML = '';
+            
+            // Sort files by date (newest first)
+            files.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Show only recent 20 files
+            const recentFiles = files.slice(0, 20);
+            
+            recentFiles.forEach(file => {
+                const icon = getFileIcon(file.type);
+                const size = file.formattedSize || formatFileSize(file.size);
+                const date = formatDate(file.date);
+                
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50';
+                
+                // Determine if file is previewable
+                const previewableTypes = [
+                    'image/',
+                    'text/',
+                    'application/pdf',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                ];
+                
+                const isPreviewable = previewableTypes.some(type => file.type.startsWith(type));
+                
+                tr.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            ${icon}
+                            <div>
+                                <span class="font-medium text-[#0A2540] truncate max-w-xs inline-block" title="${file.name}">${file.name}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500 text-sm">
+                        ${getFileType(file.type)}
+                    </td>
+                    <td class="px-6 py-4 text-gray-500 text-sm">
+                        ${size}
+                    </td>
+                    <td class="px-6 py-4 text-gray-500 text-sm">
+                        ${date}
+                    </td>
+                    <td class="px-6 py-4 flex gap-2">
+                        ${isPreviewable ? `
+                            <button onclick="previewFile('${file.id}', '${file.name.replace(/'/g, "\\'")}')" class="text-blue-500 hover:text-blue-700 text-sm font-medium" title="Preview">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        ` : ''}
+                        <button onclick="downloadFile('${file.id}', '${file.name.replace(/'/g, "\\'")}')" class="text-[#00D4FF] hover:text-[#00b7db] text-sm font-medium" title="Download">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function getFileIcon(mimeType) {
+            const icons = {
+                'application/pdf': 'file-text',
+                'image/': 'image',
+                'video/': 'film',
+                'audio/': 'music',
+                'application/msword': 'file-text',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'file-text',
+                'application/vnd.ms-excel': 'file-spreadsheet',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'file-spreadsheet',
+                'application/vnd.ms-powerpoint': 'presentation',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'presentation',
+                'text/': 'file-text',
+                'application/zip': 'archive',
+                'application/x-rar-compressed': 'archive'
+            };
+            
+            let icon = 'file';
+            for (const [key, value] of Object.entries(icons)) {
+                if (mimeType.startsWith(key)) {
+                    icon = value;
+                    break;
+                }
+            }
+            
+            const color = icon === 'file-text' ? 'text-red-500' : 
+                          icon === 'image' ? 'text-blue-500' : 
+                          icon === 'film' ? 'text-purple-500' : 'text-gray-500';
+            
+            return `<i data-lucide="${icon}" class="w-5 h-5 ${color}"></i>`;
+        }
+
+        function getFileType(mimeType) {
+            const types = {
+                'application/pdf': 'PDF',
+                'image/jpeg': 'JPEG Image',
+                'image/png': 'PNG Image',
+                'image/gif': 'GIF Image',
+                'application/msword': 'Word Document',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'Word Document',
+                'application/vnd.ms-excel': 'Excel Spreadsheet',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Excel Spreadsheet',
+                'text/plain': 'Text File',
+                'application/zip': 'ZIP Archive'
+            };
+            
+            for (const [key, value] of Object.entries(types)) {
+                if (mimeType === key || (key.includes('/') && mimeType.startsWith(key.split('/')[0]))) {
+                    return value;
+                }
+            }
+            
+            return mimeType.split('/')[1]?.toUpperCase() || 'File';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0 || !bytes) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            // Return formatted date without "Today", "Yesterday" etc.
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        function searchDocuments() {
+            const searchTerm = document.getElementById('doc-search').value.toLowerCase();
+            const filesContainer = document.getElementById('files-container');
+            const foldersContainer = document.getElementById('folders-container');
+            const noDocs = document.getElementById('no-documents');
+            
+            if (!searchTerm) {
+                loadDocuments(state.currentFolder, state.currentFolderName);
+                return;
+            }
+            
+            const filteredFiles = allDocuments.filter(item => 
+                item.type !== 'application/vnd.google-apps.folder' && 
+                item.name.toLowerCase().includes(searchTerm)
+            );
+            
+            const filteredFolders = allDocuments.filter(item => 
+                item.type === 'application/vnd.google-apps.folder' && 
+                item.name.toLowerCase().includes(searchTerm)
+            );
+            
+            // Show/hide containers based on results
+            if (filteredFolders.length > 0) {
+                displayFolders(filteredFolders);
+                foldersContainer.classList.remove('hidden');
+            } else {
+                foldersContainer.classList.add('hidden');
+            }
+            
+            if (filteredFiles.length > 0) {
+                displayFiles(filteredFiles);
+                filesContainer.classList.remove('hidden');
+                document.getElementById('file-count').textContent = `${filteredFiles.length} files found`;
+            } else {
+                filesContainer.classList.add('hidden');
+            }
+            
+            if (filteredFolders.length === 0 && filteredFiles.length === 0) {
+                noDocs.innerHTML = `
+                    <i data-lucide="search" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-bold text-[#0A2540] mb-2">No Results Found</h3>
+                    <p class="text-gray-500">No documents match your search: "${searchTerm}"</p>
+                `;
+                noDocs.classList.remove('hidden');
+            } else {
+                noDocs.classList.add('hidden');
+            }
+        }
+
+        function updateUploadFolderDropdown(folders) {
+            const select = document.getElementById('upload-folder');
+            // Clear existing options except first
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            
+            // Add current folder and its subfolders
+            if (state.currentFolder !== 'root') {
+                const currentOption = document.createElement('option');
+                currentOption.value = state.currentFolder;
+                currentOption.textContent = `Current: ${state.currentFolderName}`;
+                select.appendChild(currentOption);
+            }
+            
+            // Add root option
+            const rootOption = document.createElement('option');
+            rootOption.value = 'root';
+            rootOption.textContent = 'Root Folder';
+            if (state.currentFolder === 'root') {
+                rootOption.selected = true;
+            }
+            select.appendChild(rootOption);
+            
+            // Add all other folders
+            folders.forEach(folder => {
+                const option = document.createElement('option');
+                option.value = folder.id;
+                option.textContent = folder.name;
+                select.appendChild(option);
+            });
+        }
+
+        function updateNewFolderDropdown(folders) {
+            const select = document.getElementById('parent-folder');
+            // Clear existing options except first
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            
+            // Add current folder as first option
+            if (state.currentFolder !== 'root') {
+                const currentOption = document.createElement('option');
+                currentOption.value = state.currentFolder;
+                currentOption.textContent = `Current: ${state.currentFolderName}`;
+                currentOption.selected = true;
+                select.appendChild(currentOption);
+            }
+            
+            // Add root option
+            const rootOption = document.createElement('option');
+            rootOption.value = 'root';
+            rootOption.textContent = 'Root Folder';
+            if (state.currentFolder === 'root') {
+                rootOption.selected = true;
+            }
+            select.appendChild(rootOption);
+            
+            // Add all other folders
+            folders.forEach(folder => {
+                const option = document.createElement('option');
+                option.value = folder.id;
+                option.textContent = folder.name;
+                select.appendChild(option);
+            });
+        }
+
+        function openUploadModal() {
+            // Check if user has permission
+            if (!state.user || !(state.user.role === 'Owner' || state.user.role === 'DBA')) {
+                alert('Access Denied: Only Owner and DBA can upload files.');
+                return;
+            }
+            
+            document.getElementById('modal-upload-file').classList.remove('hidden');
+            document.getElementById('file-input').value = '';
+            document.getElementById('file-description').value = '';
+            document.getElementById('upload-error').classList.add('hidden');
+            
+            // Update folder dropdown to show current folder
+            updateUploadFolderDropdown(foldersList);
+        }
+
+        function openNewFolderModal() {
+            // Check if user has permission
+            if (!state.user || !(state.user.role === 'Owner' || state.user.role === 'DBA')) {
+                alert('Access Denied: Only Owner and DBA can create folders.');
+                return;
+            }
+            
+            document.getElementById('modal-new-folder').classList.remove('hidden');
+            document.getElementById('folder-name').value = '';
+            document.getElementById('folder-error').classList.add('hidden');
+            
+            // Update folder dropdown to show current folder
+            updateNewFolderDropdown(foldersList);
+        }
+
+        async function submitFileUpload(e) {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('file-input');
+            const folderSelect = document.getElementById('upload-folder');
+            const errorMsg = document.getElementById('upload-error');
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            if (fileInput.files.length === 0) {
+                errorMsg.textContent = 'Please select a file to upload';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            
+            // Check file size (10MB limit)
+            if (file.size > 10 * 1024 * 1024) {
+                errorMsg.textContent = 'File size exceeds 10MB limit';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+            
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Uploading...';
+            btn.disabled = true;
+            errorMsg.classList.add('hidden');
+            
+            try {
+                // Convert file to base64
+                const base64 = await fileToBase64(file);
+                
+                const payload = {
+                    name: file.name,
+                    mimeType: file.type,
+                    bytes: base64,
+                    subfolderId: folderSelect.value === 'root' ? 'root' : folderSelect.value,
+                    description: document.getElementById('file-description').value
+                };
+                
+                const params = new URLSearchParams();
+                params.append('action', 'uploadFile');
+                params.append('empId', state.user.id);
+                params.append('data', JSON.stringify(payload));
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: params
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alert(`File "${file.name}" uploaded successfully!`);
+                    closeModal('modal-upload-file');
+                    loadDocuments(state.currentFolder, state.currentFolderName); // Refresh the list
+                } else {
+                    errorMsg.textContent = result.message;
+                    errorMsg.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error(err);
+                errorMsg.textContent = 'Upload failed. Please try again.';
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function submitNewFolder(e) {
+            e.preventDefault();
+            
+            const folderName = document.getElementById('folder-name').value;
+            const parentFolder = document.getElementById('parent-folder').value;
+            const errorMsg = document.getElementById('folder-error');
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            if (!folderName.trim()) {
+                errorMsg.textContent = 'Please enter a folder name';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+            
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Creating...';
+            btn.disabled = true;
+            errorMsg.classList.add('hidden');
+            
+            try {
+                // Create folder in Google Drive
+                const payload = {
+                    name: folderName,
+                    parentId: parentFolder === 'root' ? 'root' : parentFolder,
+                    type: 'folder'
+                };
+                
+                const params = new URLSearchParams();
+                params.append('action', 'createFolder');
+                params.append('empId', state.user.id);
+                params.append('data', JSON.stringify(payload));
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: params
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alert(`Folder "${folderName}" created successfully!`);
+                    closeModal('modal-new-folder');
+                    loadDocuments(state.currentFolder, state.currentFolderName); // Refresh the list
+                } else {
+                    errorMsg.textContent = result.message;
+                    errorMsg.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error(err);
+                errorMsg.textContent = 'Failed to create folder. Please try again.';
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    const base64 = reader.result.split(',')[1];
+                    resolve(base64);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        async function downloadFile(fileId, fileName) {
+            try {
+                const downloadBtn = event.target;
+                const originalText = downloadBtn.textContent;
+                downloadBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>';
+                downloadBtn.disabled = true;
+                
+                const response = await fetch(`${API_URL}?action=downloadFile&fileId=${fileId}`);
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    // Create blob from base64
+                    const byteCharacters = atob(result.data.content);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blob = new Blob([byteArray], { type: result.data.mimeType });
+                    
+                    // Create download link
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Cleanup
+                    setTimeout(() => {
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                    }, 100);
+                    
+                    console.log(`Downloaded: ${fileName}`);
+                } else {
+                    alert('Download failed: ' + result.message);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Download failed. Please try again.');
+            } finally {
+                if (event && event.target) {
+                    event.target.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i>';
+                    event.target.disabled = false;
+                }
+            }
+        }
+
+        async function previewFile(fileId, fileName) {
+            const modal = document.getElementById('modal-file-preview');
+            const previewContent = document.getElementById('preview-content');
+            const previewFileName = document.getElementById('preview-file-name');
+            const downloadBtn = document.getElementById('preview-download-btn');
+            
+            previewFileName.textContent = fileName;
+            modal.classList.remove('hidden');
+            
+            // Set up download button
+            downloadBtn.onclick = () => downloadFile(fileId, fileName);
+            
+            // Show loading state
+            previewContent.innerHTML = `
+                <div class="py-12">
+                    <div class="w-12 h-12 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p class="text-gray-500">Loading preview...</p>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch(`${API_URL}?action=downloadFile&fileId=${fileId}`);
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    const mimeType = result.data.mimeType;
+                    
+                    if (mimeType.startsWith('image/')) {
+                        // Image preview
+                        const byteCharacters = atob(result.data.content);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: mimeType });
+                        const url = URL.createObjectURL(blob);
+                        
+                        previewContent.innerHTML = `
+                            <div class="flex justify-center">
+                                <img src="${url}" alt="${fileName}" class="max-w-full max-h-[70vh] rounded-lg shadow-lg" onload="URL.revokeObjectURL(this.src)">
+                            </div>
+                        `;
+                    } else if (mimeType === 'application/pdf') {
+                        // PDF preview using iframe
+                        const byteCharacters = atob(result.data.content);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: mimeType });
+                        const url = URL.createObjectURL(blob);
+                        
+                        previewContent.innerHTML = `
+                            <div class="w-full h-[70vh]">
+                                <iframe src="${url}" class="w-full h-full border-0 rounded-lg" title="${fileName}"></iframe>
+                            </div>
+                        `;
+                    } else if (mimeType.startsWith('text/')) {
+                        // Text file preview
+                        const text = atob(result.data.content);
+                        previewContent.innerHTML = `
+                            <div class="bg-gray-50 p-4 rounded-lg font-mono text-sm whitespace-pre-wrap max-h-[70vh] overflow-auto">
+                                ${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                            </div>
+                        `;
+                    } else {
+                        previewContent.innerHTML = `
+                            <div class="text-center py-12">
+                                <i data-lucide="file" class="w-16 h-16 text-gray-300 mx-auto mb-4"></i>
+                                <h4 class="font-bold text-[#0A2540] mb-2">No Preview Available</h4>
+                                <p class="text-gray-500">This file type cannot be previewed.</p>
+                                <p class="text-sm text-gray-400 mt-2">Click the download button to save the file.</p>
+                            </div>
+                        `;
+                    }
+                } else {
+                    previewContent.innerHTML = `
+                        <div class="text-center py-12">
+                            <i data-lucide="alert-circle" class="w-16 h-16 text-red-300 mx-auto mb-4"></i>
+                            <h4 class="font-bold text-[#0A2540] mb-2">Preview Failed</h4>
+                            <p class="text-gray-500">${result.message}</p>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                console.error(err);
+                previewContent.innerHTML = `
+                    <div class="text-center py-12">
+                        <i data-lucide="alert-circle" class="w-16 h-16 text-red-300 mx-auto mb-4"></i>
+                        <h4 class="font-bold text-[#0A2540] mb-2">Preview Error</h4>
+                        <p class="text-gray-500">Failed to load preview. Please try again.</p>
+                    </div>
+                `;
+            }
+            
+            lucide.createIcons();
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function navigateTo(pageId) {
+            state.currentPage = pageId;
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const targetSection = document.getElementById(`page-${pageId}`);
+            if (targetSection) targetSection.classList.add('active');
+            window.scrollTo(0, 0);
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                lucide.createIcons();
+            }
+
+            updateNavUI();
+        }
+
+        function updateNavUI() {
+            const publicNavs = document.querySelectorAll('.public-nav');
+            const privateNavs = document.querySelectorAll('.private-nav');
+    
+            if (state.isLoggedIn) {
+                publicNavs.forEach(el => {
+                    el.style.display = 'none';
+                    el.classList.add('hidden');
+                });
+                privateNavs.forEach(el => {
+                    el.style.display = 'flex';
+                    el.classList.remove('hidden');
+                });
+            } else {
+                publicNavs.forEach(el => {
+                    el.style.display = 'flex';
+                    el.classList.remove('hidden');
+                });
+                privateNavs.forEach(el => {
+                    el.style.display = 'none';
+                    el.classList.add('hidden');
+                });
+            }
+        }
+
+        function handleLogout() {
+            state.isLoggedIn = false;
+            state.user = null;
+            state.currentFolder = 'root';
+            state.folderHistory = [];
+            state.currentFolderName = 'Documents';
+            navigateTo('login');
+            // Reset all forms
+            document.getElementById('login-form').reset();
+            switchLoginUI(1);
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+    
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                // Change icon to X
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'x');
+                    lucide.createIcons();
+                }
+                // Prevent body scroll
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('hidden');
+                // Change icon back to menu
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'menu');
+                    lucide.createIcons();
+                }
+                // Restore body scroll
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        function toggleDashboardSidebar() {
+            const sidebar = document.getElementById('dashboard-sidebar');
+            const overlay = document.getElementById('dashboard-overlay');
+    
+            if (sidebar.classList.contains('-translate-x-full')) {
+                // Open sidebar
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                // Prevent body scroll when sidebar is open
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Close sidebar
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                // Restore body scroll
+                document.body.style.overflow = 'auto';
+            }
+            lucide.createIcons();
+        }
+
+        function switchDashTab(tabName) {
+            // Update mobile dashboard title
+            const tabTitles = {
+                'overview': 'Dashboard',
+                'manage': 'Employees',
+                'accounts': 'Accounts',
+                'profile': 'Employee Details',
+                'attendance': 'Attendance',
+                'payroll': 'Payroll',
+                'documents': 'Documents',
+                'tasks': 'Tasks & Projects',
+                'support': 'Help & Support',
+                'settings': 'Settings'
+            };
+    
+            document.getElementById('mobile-dashboard-title').textContent = tabTitles[tabName] || 'Dashboard';
+            document.getElementById('mobile-dashboard-subtitle').textContent = state.user ? `${state.user.name} • ${state.user.role}` : 'Main Menu';
+    
+            // Update active tab styling in sidebar
+            document.querySelectorAll('.dash-tab-btn').forEach(btn => {
+                btn.classList.remove('active-tab', 'text-[#00D4FF]', 'bg-white/5');
+                btn.classList.add('text-gray-300');
+            });
+        
+            const clickedBtn = document.querySelector(`button[onclick*="switchDashTab('${tabName}')"]`);
+            if(clickedBtn) {
+                clickedBtn.classList.remove('text-gray-300');
+                clickedBtn.classList.add('active-tab', 'text-[#00D4FF]', 'bg-white/5');
+            }
+
+            // Hide all views
+            document.querySelectorAll('.dash-view').forEach(view => {
+                view.classList.add('hidden');
+                view.classList.remove('block');
+            });
+
+            // Show selected view
+            const selectedView = document.getElementById(`dash-view-${tabName}`);
+            if(selectedView) {
+                selectedView.classList.remove('hidden');
+                selectedView.classList.add('block');
+                lucide.createIcons();
+        
+                // Load data for specific tabs
+                if (tabName === 'manage') {
+                    loadManageEmployees();
+                }
+                if (tabName === 'accounts') {
+                    loadAccountsData();
+                }
+                if (tabName === 'documents') {
+                    loadDocuments();
+                }
+            }
+        
+            // Close mobile sidebar on tab switch (only on mobile)
+            if (window.innerWidth < 1024) {
+                const sidebar = document.getElementById('dashboard-sidebar');
+                const overlay = document.getElementById('dashboard-overlay');
+        
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        
+            // Set current date
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+        
+            // Set greeting
+            const hour = now.getHours();
+            let greeting = "Good ";
+            if (hour < 12) greeting += "Morning";
+            else if (hour < 18) greeting += "Afternoon";
+            else greeting += "Evening";
+            document.getElementById('dash-greeting').textContent = greeting;
+        
+            // Close sidebar when clicking overlay
+            document.getElementById('dashboard-overlay').addEventListener('click', function() {
+                toggleDashboardSidebar();
+            });
+        
+            // Close sidebar when pressing escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const sidebar = document.getElementById('dashboard-sidebar');
+                    const overlay = document.getElementById('dashboard-overlay');
+                    if (!sidebar.classList.contains('-translate-x-full')) {
+                        sidebar.classList.add('-translate-x-full');
+                        overlay.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                    // Also close any open modals
+                    const modals = document.querySelectorAll('.fixed.inset-0.bg-black\\/50');
+                    modals.forEach(modal => {
+                        if (!modal.classList.contains('hidden')) {
+                            modal.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+        
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                const sidebar = document.getElementById('dashboard-sidebar');
+                const overlay = document.getElementById('dashboard-overlay');
+                const menuToggle = document.querySelector('[onclick="toggleDashboardSidebar()"]');
+            
+                // Check if click is outside sidebar and overlay is visible
+                if (!sidebar.contains(event.target) && 
+                    !overlay.classList.contains('hidden') && 
+                    !(menuToggle && menuToggle.contains(event.target))) {
+                        toggleDashboardSidebar();
+                }
+            });
+        
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const sidebar = document.getElementById('dashboard-sidebar');
+                const overlay = document.getElementById('dashboard-overlay');
+                
+                // On desktop, ensure sidebar is always visible
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                } else {
+                    // On mobile, ensure sidebar is hidden by default
+                    if (!sidebar.classList.contains('-translate-x-full')) {
+                        sidebar.classList.add('-translate-x-full');
+                        overlay.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                }
+            });
+        
+            // Force mobile state on load
+            if (window.innerWidth < 1024) {
+                const sidebar = document.getElementById('dashboard-sidebar');
+                sidebar.classList.add('-translate-x-full');
+            }
+            
+            // Initialize with profile tab hidden (it will show when user logs in)
+            document.getElementById('dash-view-profile').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

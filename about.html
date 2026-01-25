@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Trimitha | Trust • Thought • Technology</title>
+    
+    <meta name="description" content="Learn about Trimitha's values, mission, and vision. Built on Trust, Thought, and Technology with Togetherness.">
+    <meta name="keywords" content="Trimitha, About, Company Values, Mission, Vision, Trust, Thought, Technology, Togetherness">
+    <meta name="author" content="Trimitha">
+    <link rel="icon" type="image/png" href="Images/Trimitha Logo.png" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Fix: Ensure Tailwind is loaded before configuring
+        const configureTailwind = () => {
+            if (typeof tailwind !== 'undefined') {
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            colors: {
+                                primary: '#0A2540',
+                                secondary: '#00D4FF',
+                                accent: '#C5A059',
+                                light: '#F4F6F8',
+                            },
+                            fontFamily: {
+                                sans: ['Inter', 'sans-serif'],
+                                heading: ['Montserrat', 'sans-serif'],
+                            },
+                            animation: {
+                                'spin-slow': 'spin 12s linear infinite',
+                                'spin-reverse': 'spin 8s linear infinite reverse',
+                            }
+                        }
+                    }
+                };
+            } else {
+                // Retry if tailwind script hasn't executed yet
+                setTimeout(configureTailwind, 50);
+            }
+        };
+        
+        configureTailwind();
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-[#00D4FF] selection:text-[#0A2540]">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 backdrop-blur-md border-b border-gray-800 transition-all duration-300" style="background-color: rgba(10, 37, 64, 0.95);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <!-- Custom Logo Image: Trimitha Logo -->
+                    <img src="Images/Trimitha Main1.png" alt="Trimitha Logo" class="h-10 w-auto object-contain">
+                    <span class="font-bold text-2xl tracking-tight text-white font-heading">TRIMITHA</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8" id="desktop-menu">
+                    <!-- Public Links -->
+                    <div class="public-nav flex items-center space-x-8">
+                        <a href="index.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">HOME</a>
+                        <a href="about.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">ABOUT</a>
+                        <a href="services.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">SERVICES</a>
+                        <a href="contact.html" class="nav-link text-sm font-medium tracking-wide text-white hover:text-[#00D4FF] transition-colors">CONTACT</a>
+                        <div class="h-6 w-px bg-gray-700 mx-2"></div>
+                        <a href="login.html" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Employee Login
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-white">
+                        <i data-lucide="menu" class="w-6 h-6" id="mobile-menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0A2540] border-t border-gray-800 px-4 pt-4 pb-6 space-y-4 shadow-xl">
+            <div class="public-nav flex flex-col space-y-4">
+                <a href="index.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">HOME</a>
+                <a href="about.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">ABOUT</a>
+                <a href="services.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">SERVICES</a>
+                <a href="contact.html" class="text-left text-base font-medium text-white hover:text-[#00D4FF] py-2 px-2 rounded hover:bg-white/5 transition-all">CONTACT</a>
+                <div class="pt-4 border-t border-gray-700">
+                    <a href="login.html" class="w-full text-left text-gray-300 py-3 px-2 flex items-center gap-3 hover:text-white transition-colors">
+                        <i data-lucide="lock" class="w-5 h-5"></i> Employee Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="pt-20 bg-white">
+            
+            <!-- About Hero -->
+            <div class="bg-[#0A2540] py-24 relative overflow-hidden">
+                <!-- Decorative Elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-[#00D4FF] opacity-5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#C5A059] opacity-5 rounded-full blur-3xl -ml-20 -mb-20"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <span class="text-[#00D4FF] font-bold tracking-widest text-sm uppercase mb-4 block">Our Identity</span>
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 font-heading leading-tight">
+                        Built on Trust. Driven by Thought.<br />
+                        <span class="text-[#C5A059]">Powered by Technology.</span>
+                    </h1>
+                    <p class="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
+                        Trimitha is a convergence of integrity, intelligence, and innovation. We believe that when advanced technology meets human values, we create a better future for everyone.
+                    </p>
+                </div>
+            </div>
+
+            <!-- The Meaning of Trimitha (Values) -->
+            <div class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-[#0A2540] text-3xl font-bold mb-4 font-heading">The Power of Three</h2>
+                        <div class="w-20 h-1 bg-[#00D4FF] mx-auto rounded-full"></div>
+                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
+                            Our name "Trimitha" is derived from the synergy of three core principles that guide every decision we make.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-10">
+                        <!-- Value 1: Trust -->
+                        <div class="group p-8 rounded-2xl bg-[#F4F6F8] hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-gray-100 text-center">
+                            <div class="w-16 h-16 bg-[#0A2540] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="shield-check" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-[#0A2540] mb-3">Trust</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                The foundation of every relationship. We believe in absolute transparency and reliability, ensuring our partners and employees feel secure in every interaction.
+                            </p>
+                        </div>
+
+                        <!-- Value 2: Thought -->
+                        <div class="group p-8 rounded-2xl bg-[#F4F6F8] hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-gray-100 text-center">
+                            <div class="w-16 h-16 bg-[#00D4FF] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="brain-circuit" class="w-8 h-8 text-[#0A2540]"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-[#0A2540] mb-3">Thought</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                Strategic innovation. We don't just act; we think deeply to solve complex problems, ensuring every solution is purposeful, efficient, and future-proof.
+                            </p>
+                        </div>
+
+                        <!-- Value 3: Technology (Replaced Togetherness) -->
+                        <div class="group p-8 rounded-2xl bg-[#F4F6F8] hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-gray-100 text-center">
+                            <div class="w-16 h-16 bg-[#C5A059] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="cpu" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-[#0A2540] mb-3">Technology</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                Impactful innovation. We harness the power of technology to build sustainable, scalable solutions that not only solve today's problems but create a lasting, positive legacy for society.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Togetherness Section (Added Below) -->
+                    <div class="mt-16 text-center max-w-3xl mx-auto relative">
+                        <div class="absolute left-1/2 -top-10 -translate-x-1/2 w-px h-10 bg-gray-200"></div>
+                        <div class="inline-flex items-center justify-center p-3 bg-blue-50 rounded-full mb-4 ring-4 ring-white">
+                            <i data-lucide="users" class="w-6 h-6 text-[#0A2540]"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#0A2540] mb-3">United by Togetherness</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            While Trust, Thought, and Technology are our pillars, <strong>Togetherness</strong> is the foundation that holds them all. We champion a culture where individual strengths are amplified by shared goals, creating a collective impact far greater than the sum of its parts.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="bg-[#F9FAFB] py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-[#0A2540] rounded-2xl transform rotate-3 opacity-10"></div>
+                            <div class="relative bg-white p-10 rounded-2xl shadow-sm border border-gray-100">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <i data-lucide="target" class="w-6 h-6 text-[#00D4FF]"></i>
+                                    <h3 class="text-xl font-bold text-[#0A2540]">Our Mission</h3>
+                                </div>
+                                <p class="text-gray-600 leading-relaxed">
+                                    To empower businesses and individuals to reach their full potential through collaborative innovation. We strive to build platforms and solutions that bridge gaps, simplify complexity, and foster sustainable growth for everyone involved.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-[#C5A059] rounded-2xl transform -rotate-3 opacity-10"></div>
+                            <div class="relative bg-white p-10 rounded-2xl shadow-sm border border-gray-100">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <i data-lucide="telescope" class="w-6 h-6 text-[#C5A059]"></i>
+                                    <h3 class="text-xl font-bold text-[#0A2540]">Our Vision</h3>
+                                </div>
+                                <p class="text-gray-600 leading-relaxed">
+                                    To be a global benchmark for synergy, creating a future where technology and humanity advance together. We envision a world where every idea has the support it needs to become a reality.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Culture / Approach -->
+            <div class="py-20 bg-white">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-[#0A2540] mb-6 font-heading">Synergy in Every Interaction</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-10">
+                        At Trimitha, we don't believe in silos. Our culture is built on the idea that the best solutions come from diverse minds working in harmony. Whether it's a client partnership or an internal team project, we approach every challenge with empathy, respect, and a shared commitment to excellence.
+                    </p>
+                    <a href="contact.html" class="bg-[#0A2540] text-white px-8 py-3 rounded-full font-bold hover:bg-[#00D4FF] hover:text-[#0A2540] transition-all shadow-lg">
+                        Join Our Journey
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0A2540] text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <!-- Custom Logo SVG Footer -->
+                        <img src="Images/Trimitha Logo.png" alt="Trimitha Logo" class="h-10 w-auto object-contain">
+                        <span class="font-bold text-xl font-heading">TRIMITHA</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Trimitha is a people-driven company focused on trust, shared thinking, and working together to turn ideas into impact.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-[#C5A059] mb-6 font-heading">Navigation</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="index.html" class="hover:text-[#00D4FF]">Home</a></li>
+                        <li><a href="about.html" class="hover:text-[#00D4FF]">About Us</a></li>
+                        <li><a href="services.html" class="hover:text-[#00D4FF]">Services</a></li>
+                        <li><a href="contact.html" class="hover:text-[#00D4FF]">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-[#C5A059] mb-6 font-heading">Legal</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li><a href="privacy.html" class="hover:text-[#00D4FF]">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-[#00D4FF]">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html" class="hover:text-[#00D4FF]">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-[#C5A059] mb-6 font-heading">Contact</h4>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Proddatur, India</li>
+                        <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> contact@trimitha.co.in</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Trimitha All rights reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="https://www.linkedin.com/company/trimitha" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                    </a>
+                    <a href="https://x.com/trimithacompany" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                        <i data-lucide="twitter" class="w-4 h-4"></i>
+                    </a>
+                    <a href="https://www.instagram.com/trimitha.co/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-[#00D4FF] hover:text-[#0A2540] transition-colors">
+                        <i data-lucide="instagram" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        // Initialize icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
