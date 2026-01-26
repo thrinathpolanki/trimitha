@@ -535,7 +535,7 @@
                         </div>
                     </div>
 
-                    <form id="login-form" onsubmit="handleLogin(event)" class="p-8 space-y-6">
+                    <form id="login-form" onsubmit="handleLogin(event)" class="p-8 space-y-6" method="post">
                         <div id="login-error" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
                             Invalid credentials.
                         </div>
@@ -1654,7 +1654,7 @@
     </div>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbx0jVlJXkk5HTEtwbgALAJimcxuecsrsAVK6goEcmtdlVdbvHDoSAO6hhPMtZnLDfdp/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbyzapYxOjKoKI4FbqbxZQTgAlFe4fd9W_uvpf05WmVJZ1BoYT9N8XuGUt2AMZvTftxY/exec";
 
         const state = {
             isLoggedIn: false,
@@ -1749,9 +1749,25 @@
                     const id = document.getElementById('empId').value;
                     const pass = document.getElementById('password').value;
                     state.tempEmpId = id; // Store for 2FA
+            
+                    console.log("Login attempt for ID:", id, "Password:", pass ? "***" : "empty");
 
-                    const response = await fetch(`${API_URL}?action=login&empId=${id}&password=${pass}`);
+                    // Use POST request to handle special characters in password
+                    const params = new URLSearchParams();
+                    params.append('action', 'login');
+                    params.append('empId', id);
+                    params.append('password', pass); // Passwords with special characters will be URL-encoded automatically
+                    
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                        },
+                        body: params
+                    });
+            
                     const data = await response.json();
+                    console.log("Login response:", data);
 
                     if (data.status === 'success') {
                         loginSuccess(data.user);
@@ -1767,13 +1783,26 @@
                         document.getElementById('manual-secret').textContent = data.secret;
                         switchLoginUI(3);
                     } else {
-                        throw new Error(data.message);
+                        throw new Error(data.message || "Login failed");
                     }
                 } 
                 // STEP 2: Normal Verification
                 else if (state.loginStep === 2) {
                     const code = document.getElementById('2fa-code').value;
-                    const response = await fetch(`${API_URL}?action=verify2FA&empId=${state.tempEmpId}&code=${code}`);
+            
+                    const params = new URLSearchParams();
+                    params.append('action', 'verify2FA');
+                    params.append('empId', state.tempEmpId);
+                    params.append('code', code);
+                    
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                        },
+                        body: params
+                    });
+            
                     const data = await response.json();
                     
                     if (data.status === 'success') loginSuccess(state.user || {name: 'User', id: state.tempEmpId});
@@ -1782,16 +1811,30 @@
                 // STEP 3: Setup Verification
                 else if (state.loginStep === 3) {
                     const code = document.getElementById('setup-code').value;
-                    const url = `${API_URL}?action=verify2FA&empId=${state.tempEmpId}&code=${code}&isSetup=true&secret=${state.tempSecret}`;
-                    const response = await fetch(url);
+            
+                    const params = new URLSearchParams();
+                    params.append('action', 'verify2FA');
+                    params.append('empId', state.tempEmpId);
+                    params.append('code', code);
+                    params.append('isSetup', 'true');
+                    params.append('secret', state.tempSecret);
+            
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                        },
+                        body: params
+                    });
+            
                     const data = await response.json();
-                    
+            
                     if (data.status === 'success') loginSuccess(state.user);
                     else throw new Error(data.message);
                 }
 
             } catch (err) {
-                console.error(err);
+                console.error("Login error:", err);
                 errorMsg.textContent = err.message || "Connection Error";
                 errorMsg.classList.remove('hidden');
             } finally {
@@ -1942,7 +1985,7 @@
             errorMsg.classList.add('hidden');
             successMsg.classList.add('hidden');
     
-        // Validate
+            // Validate
             if (newPassword.length < 8) {
                 errorMsg.textContent = "Password must be at least 8 characters long.";
                 errorMsg.classList.remove('hidden');
@@ -1960,7 +2003,7 @@
             btn.textContent = "Changing Password...";
     
             try {
-                // Create URLSearchParams for form data
+                // Create URLSearchParams for form data - this properly encodes special characters
                 const params = new URLSearchParams();
                 params.append('action', 'updatePassword');
                 params.append('empId', state.user.id);
@@ -1968,25 +2011,22 @@
                 params.append('newPassword', newPassword);
                 params.append('confirmPassword', confirmPassword);
         
-                console.log('Sending password change request with params:', {
-                    action: 'updatePassword',
-                    empId: state.user.id,
-                    currentPassword: '***',
-                    newPassword: '***',
-                    confirmPassword: '***'
-                });
-                
+                console.log('Sending password change request for user:', state.user.id);
+                console.log('Current password length:', currentPassword.length);
+                console.log('New password length:', newPassword.length);
+                console.log('Confirm password length:', confirmPassword.length);
+        
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                     },
                     body: params
                 });
         
                 const result = await response.json();
                 console.log('Password change response:', result);
-            
+        
                 if (result.status === 'success') {
                     successMsg.textContent = result.message;
                     successMsg.classList.remove('hidden');
@@ -1994,7 +2034,7 @@
                     // Clear form
                     document.getElementById('password-change-form').reset();
             
-                    // Log out user after successful password change (recommended security practice)
+                    // Log out user after successful password change
                     setTimeout(() => {
                         alert("Password changed successfully. Please login again with your new password.");
                         handleLogout();
@@ -2006,7 +2046,7 @@
                 }
             } catch (err) {
                 console.error('Password change error:', err);
-                errorMsg.textContent = "An error occurred. Please try again. Error: " + err.message;
+                errorMsg.textContent = "An error occurred. Please try again.";
                 errorMsg.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
