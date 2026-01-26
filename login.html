@@ -8,7 +8,22 @@
     <meta name="description" content="Trimitha Employee Portal - Secure login for employees.">
     <meta name="keywords" content="Trimitha, Employee Login, Dashboard, Portal, HR, Payroll">
     <meta name="author" content="Trimitha">
-    <link rel="icon" type="image/png" href="Trimitha Logo.png" />
+    <link rel="icon" type="image/png" href="Images/Trimitha Logo.png" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Trimitha",
+      "description": "A technology-driven company built on Trust, Thought, and Technology with togetherness",
+      "url": "https://trimitha.co.in",
+      "sameAs": [
+        "https://www.linkedin.com/company/trimitha",
+        "https://www.instagram.com/trimitha.co/",
+        "https://twitter.com/trimithacompany"
+      ]
+    }
+    </script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,6 +54,8 @@
                             animation: {
                                 'spin-slow': 'spin 12s linear infinite',
                                 'spin-reverse': 'spin 8s linear infinite reverse',
+                                'fade-in': 'fadeIn 0.8s ease-out',
+                                'slide-up': 'slideUp 0.6s ease-out',
                             }
                         }
                     }
@@ -141,9 +158,256 @@
             align-items: center !important;
             justify-content: center !important;
         }
+
+        /* Splash Screen Styles */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: linear-gradient(135deg, #0A2540 0%, #163558 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+            padding: 1.5rem;
+        }
+
+        .splash-logo-container {
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        .splash-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .splash-logo-img {
+            height: 2.5rem;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .splash-logo-text {
+            font-weight: 700;
+            font-size: 1.75rem;
+            letter-spacing: 0.05em;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .splash-content {
+            text-align: center;
+            color: white;
+            max-width: 42rem;
+            width: 100%;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        .splash-icon-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+            display: inline-flex;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
+            }
+        }
+
+        .splash-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            color: #00D4FF;
+        }
+
+        .splash-heading {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ffffff, #e6f7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .splash-subheading {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .splash-divider {
+            height: 1px;
+            width: 100%;
+            max-width: 24rem;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 100%);
+            margin: 2rem auto;
+        }
+
+        .splash-notice {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.025em;
+            padding: 0 1.5rem;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        .splash-notice-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .splash-notice-icon {
+            width: 1rem;
+            height: 1rem;
+            color: #00D4FF;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .splash-heading {
+                font-size: 2rem;
+            }
+            
+            .splash-subheading {
+                font-size: 1.125rem;
+            }
+            
+            .splash-icon-container {
+                padding: 1rem;
+            }
+            
+            .splash-icon {
+                width: 3rem;
+                height: 3rem;
+            }
+            
+            .splash-logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .splash-logo-img {
+                height: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .splash-heading {
+                font-size: 1.75rem;
+            }
+            
+            .splash-subheading {
+                font-size: 1rem;
+            }
+            
+            .splash-content {
+                padding: 0 1rem;
+            }
+            
+            .splash-notice {
+                font-size: 0.75rem;
+                padding: 0 1rem;
+            }
+            
+            .splash-notice-content {
+                padding: 0.5rem 1rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-white text-slate-800 antialiased selection:bg-[#00D4FF] selection:text-[#0A2540]">
+    <!-- Professional Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-logo-container">
+            <div class="splash-logo">
+                <img src="Images/Trimitha Main1.png" alt="Trimitha Logo" class="splash-logo-img">
+                <span class="splash-logo-text">TRIMITHA</span>
+            </div>
+        </div>
+
+        <div class="splash-content">
+            <div class="splash-icon-container">
+                <i data-lucide="shield-check" class="splash-icon"></i>
+            </div>
+            
+            <h1 class="splash-heading font-heading">
+                Welcome to the Employee Portal
+            </h1>
+            
+            <p class="splash-subheading">
+                Please sign in to access internal tools and resources.
+            </p>
+            
+            <div class="splash-divider"></div>
+            
+            <div class="splash-progress">
+                <div class="w-48 h-1 bg-gray-700/50 rounded-full overflow-hidden mx-auto">
+                    <div class="h-full bg-[#00D4FF] rounded-full animate-pulse" style="width: 30%"></div>
+                </div>
+                <p class="text-sm text-gray-400 mt-2">Loading Employee Portal...</p>
+            </div>
+        </div>
+
+        <div class="splash-notice">
+            <div class="splash-notice-content">
+                <i data-lucide="monitor" class="splash-notice-icon"></i>
+                <span>For optimal performance and usability, this application is best accessed on a desktop device.</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 backdrop-blur-md border-b border-gray-800 transition-all duration-300" style="background-color: rgba(10, 37, 64, 0.95);">
@@ -3016,6 +3280,25 @@
             // Initialize with profile tab hidden (it will show when user logs in)
             document.getElementById('dash-view-profile').classList.add('hidden');
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons for the splash screen
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+            const splash = document.getElementById('splash-screen');
+        
+            // Hide splash screen after 2.5 seconds
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                splash.style.visibility = 'hidden';
+            
+                // Re-enable scrolling if it was locked
+                document.body.style.overflow = 'auto';
+            }, 2500);
+        });
+
     </script>
 </body>
 </html>
