@@ -1215,7 +1215,7 @@
                                     </div>
                                     Security Settings
                                 </h3>
-                                
+    
                                 <div class="space-y-4">
                                     <div class="flex items-center justify-between">
                                         <div>
@@ -1227,21 +1227,16 @@
                                             <button onclick="manage2FA()" class="text-sm text-[#00D4FF] hover:underline">Manage</button>
                                         </div>
                                     </div>
-                                    
-                                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                                        <div>
-                                            <h4 class="font-medium text-[#0A2540]">Session Management</h4>
-                                            <p class="text-sm text-gray-500">View and manage active sessions</p>
-                                        </div>
-                                        <button onclick="viewSessions()" class="text-sm text-[#00D4FF] hover:underline">View Sessions</button>
-                                    </div>
-                                    
+        
                                     <div class="flex items-center justify-between pt-4 border-t border-gray-100">
                                         <div>
                                             <h4 class="font-medium text-[#0A2540]">Activity Log</h4>
-                                            <p class="text-sm text-gray-500">Review your account activity</p>
+                                            <p class="text-sm text-gray-500">Review your account activity and access history</p>
                                         </div>
-                                        <button onclick="viewActivityLog()" class="text-sm text-[#00D4FF] hover:underline">View Log</button>
+                                        <button onclick="viewActivityLog()" class="text-sm text-[#00D4FF] hover:underline flex items-center gap-2">
+                                            <i data-lucide="history" class="w-4 h-4"></i>
+                                            View Activity Log
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1653,8 +1648,93 @@
         </div>
     </div>
 
+    <!-- Activity Log Modal -->
+    <div id="modal-activity-log" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden animate-fade-in-up">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <div>
+                    <h3 class="font-bold text-[#0A2540]">Activity Log</h3>
+                    <p class="text-sm text-gray-500">Your account activity history</p>
+                </div>
+                <button onclick="closeModal('modal-activity-log')" class="text-gray-400 hover:text-red-500">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+        
+            <div class="p-6">
+                <!-- Filter Controls -->
+                <div class="mb-6 flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+                    <div class="flex gap-3">
+                        <div class="relative">
+                            <input type="text" id="activity-search" placeholder="Search activities..." class="w-full md:w-64 bg-white border border-gray-200 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-[#00D4FF]" onkeyup="filterActivityLog()">
+                            <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-2.5"></i>
+                        </div>
+                        <select id="activity-module-filter" class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-[#00D4FF]" onchange="filterActivityLog()">
+                            <option value="">All Modules</option>
+                            <option value="Authentication">Authentication</option>
+                            <option value="Profile">Profile</option>
+                            <option value="Management">Management</option>
+                            <option value="Security">Security</option>
+                            <option value="Documents">Documents</option>
+                            <option value="Contact">Contact</option>
+                            <option value="Error">Error</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        <span id="activity-log-count">Loading...</span>
+                    </div>
+                </div>
+            
+                <!-- Loading State -->
+                <div id="activity-log-loading" class="text-center py-12">
+                    <div class="inline-block w-8 h-8 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin mb-2"></div>
+                    <p class="text-gray-500">Loading activity log...</p>
+                </div>
+            
+                <!-- Activity Log Table -->
+                <div id="activity-log-container" class="hidden">
+                    <div class="bg-white rounded-lg border border-gray-100 overflow-hidden">
+                        <div class="overflow-x-auto max-h-[60vh]">
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
+                                    <tr>
+                                        <th class="px-6 py-3 font-semibold">Timestamp</th>
+                                        <th class="px-6 py-3 font-semibold">Module</th>
+                                        <th class="px-6 py-3 font-semibold">Action</th>
+                                        <th class="px-6 py-3 font-semibold">Details</th>
+                                        <th class="px-6 py-3 font-semibold">IP Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activity-log-body" class="divide-y divide-gray-100">
+                                    <!-- Activity logs will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                
+                    <!-- No Results -->
+                    <div id="activity-log-empty" class="hidden text-center py-12">
+                        <i data-lucide="file-text" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-[#0A2540] mb-2">No Activity Found</h3>
+                        <p class="text-gray-500">No activity records match your search criteria.</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                <div class="text-sm text-gray-500">
+                    Showing <span id="activity-showing-count">0</span> of <span id="activity-total-count">0</span> activities
+                </div>
+                <button onclick="closeModal('modal-activity-log')" class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyzapYxOjKoKI4FbqbxZQTgAlFe4fd9W_uvpf05WmVJZ1BoYT9N8XuGUt2AMZvTftxY/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbzDSceWQ15T03YQV5AqqYVY5UDAis9atdSsKa1_zcTEvJfHnEa0ysjS1NJsqQLwRI_X/exec";
 
         const state = {
             isLoggedIn: false,
@@ -1749,15 +1829,15 @@
                     const id = document.getElementById('empId').value;
                     const pass = document.getElementById('password').value;
                     state.tempEmpId = id; // Store for 2FA
-            
+    
                     console.log("Login attempt for ID:", id, "Password:", pass ? "***" : "empty");
 
                     // Use POST request to handle special characters in password
                     const params = new URLSearchParams();
                     params.append('action', 'login');
                     params.append('empId', id);
-                    params.append('password', pass); // Passwords with special characters will be URL-encoded automatically
-                    
+                    params.append('password', pass);
+            
                     const response = await fetch(API_URL, {
                         method: 'POST',
                         headers: {
@@ -1765,7 +1845,7 @@
                         },
                         body: params
                     });
-            
+    
                     const data = await response.json();
                     console.log("Login response:", data);
 
@@ -1789,12 +1869,15 @@
                 // STEP 2: Normal Verification
                 else if (state.loginStep === 2) {
                     const code = document.getElementById('2fa-code').value;
-            
+    
                     const params = new URLSearchParams();
                     params.append('action', 'verify2FA');
                     params.append('empId', state.tempEmpId);
                     params.append('code', code);
-                    
+                    params.append('isSetup', 'false'); // Explicitly set to false
+            
+                    console.log("Sending 2FA verification request...");
+            
                     const response = await fetch(API_URL, {
                         method: 'POST',
                         headers: {
@@ -1802,22 +1885,28 @@
                         },
                         body: params
                     });
-            
+    
                     const data = await response.json();
-                    
-                    if (data.status === 'success') loginSuccess(state.user || {name: 'User', id: state.tempEmpId});
-                    else throw new Error(data.message);
+                    console.log("2FA verification response:", data);
+            
+                    if (data.status === 'success') {
+                        loginSuccess(state.user || {name: 'User', id: state.tempEmpId});
+                    } else {
+                        throw new Error(data.message || "Invalid verification code");
+                    }
                 }
                 // STEP 3: Setup Verification
                 else if (state.loginStep === 3) {
                     const code = document.getElementById('setup-code').value;
-            
+    
                     const params = new URLSearchParams();
                     params.append('action', 'verify2FA');
                     params.append('empId', state.tempEmpId);
                     params.append('code', code);
-                    params.append('isSetup', 'true');
+                    params.append('isSetup', 'true'); // Explicitly set to true
                     params.append('secret', state.tempSecret);
+    
+                    console.log("Sending 2FA setup verification request...");
             
                     const response = await fetch(API_URL, {
                         method: 'POST',
@@ -1826,18 +1915,22 @@
                         },
                         body: params
                     });
-            
+    
                     const data = await response.json();
-            
-                    if (data.status === 'success') loginSuccess(state.user);
-                    else throw new Error(data.message);
+                    console.log("2FA setup verification response:", data);
+
+                    if (data.status === 'success') {
+                        loginSuccess(state.user);
+                    } else {
+                        throw new Error(data.message || "Invalid setup code");
+                    }
                 }
 
             } catch (err) {
                 console.error("Login error:", err);
                 errorMsg.textContent = err.message || "Connection Error";
                 errorMsg.classList.remove('hidden');
-            } finally {
+                // Reset button text based on current step
                 const labels = {1: 'Access Dashboard', 2: 'Verify Identity', 3: 'Complete Setup'};
                 btn.textContent = labels[state.loginStep];
             }
@@ -2066,12 +2159,169 @@
             }
         }
 
-        function viewSessions() {
-            alert("Session management feature coming soon!");
+        async function viewActivityLog() {
+            // Open the modal
+            document.getElementById('modal-activity-log').classList.remove('hidden');
+    
+            // Reset filters
+            document.getElementById('activity-search').value = '';
+            document.getElementById('activity-module-filter').value = '';
+    
+            // Show loading state
+            document.getElementById('activity-log-loading').classList.remove('hidden');
+            document.getElementById('activity-log-container').classList.add('hidden');
+            document.getElementById('activity-log-empty').classList.add('hidden');
+    
+            try {
+                // Fetch activity log from backend
+                const response = await fetch(`${API_URL}?action=getActivityLog&empId=${state.user.id}`);
+                const result = await response.json();
+        
+                if (result.status === 'success') {
+                    // Store the data for filtering
+                    window.activityLogData = result.data;
+            
+                    // Display the logs
+                    displayActivityLog(result.data);
+            
+                    // Update counts
+                    document.getElementById('activity-log-count').textContent = `${result.data.length} activities logged`;
+                    document.getElementById('activity-total-count').textContent = result.data.length;
+                    document.getElementById('activity-showing-count').textContent = result.data.length;
+            
+                    // Hide loading, show table
+                    document.getElementById('activity-log-loading').classList.add('hidden');
+                    document.getElementById('activity-log-container').classList.remove('hidden');
+            
+                    if (result.data.length === 0) {
+                        document.getElementById('activity-log-container').classList.add('hidden');
+                        document.getElementById('activity-log-empty').classList.remove('hidden');
+                    }
+                    } else {
+                        throw new Error(result.message);
+                    }
+            } catch (err) {
+                console.error('Failed to load activity log:', err);
+                document.getElementById('activity-log-loading').innerHTML = `
+                    <div class="text-center py-12">
+                        <i data-lucide="alert-circle" class="w-16 h-16 text-red-300 mx-auto mb-4"></i>
+                        <h4 class="font-bold text-[#0A2540] mb-2">Failed to Load Activity Log</h4>
+                        <p class="text-gray-500">${err.message || 'Please try again later.'}</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
         }
 
-        function viewActivityLog() {
-            alert("Activity log feature coming soon!");
+        function displayActivityLog(activities) {
+            const tbody = document.getElementById('activity-log-body');
+            tbody.innerHTML = '';
+    
+            // Sort by timestamp (newest first)
+            const sortedActivities = [...activities].sort((a, b) => 
+                new Date(b.timestamp) - new Date(a.timestamp)
+            );
+    
+            sortedActivities.forEach(activity => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+        
+                // Format timestamp
+                const timestamp = new Date(activity.timestamp);
+                const formattedTime = timestamp.toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+        
+                // Get module color
+                const moduleColors = {
+                    'Authentication': 'bg-blue-100 text-blue-800',
+                    'Profile': 'bg-purple-100 text-purple-800',
+                    'Management': 'bg-green-100 text-green-800',
+                    'Security': 'bg-red-100 text-red-800',
+                    'Documents': 'bg-amber-100 text-amber-800',
+                    'Contact': 'bg-cyan-100 text-cyan-800',
+                    'Error': 'bg-red-100 text-red-800'
+                };
+        
+                const moduleColor = moduleColors[activity.module] || 'bg-gray-100 text-gray-800';
+        
+                // Format details
+                let detailsText = '';
+                if (activity.details && typeof activity.details === 'object') {
+                    try {
+                        detailsText = Object.entries(activity.details)
+                            .map(([key, value]) => `${key}: ${value}`)
+                            .join(', ');
+                    } catch (e) {
+                        detailsText = JSON.stringify(activity.details);
+                    }
+                }
+        
+                row.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900 font-mono">${formattedTime}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 rounded-full text-xs font-bold ${moduleColor}">
+                            ${activity.module}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="font-medium text-[#0A2540]">${activity.action}</div>
+                        <div class="text-xs text-gray-500 mt-1">${activity.employeeName || 'System'}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-600 max-w-xs truncate" title="${detailsText}">
+                            ${detailsText || '-'}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-mono text-gray-500">${activity.ipAddress || 'Unknown'}</div>
+                        <div class="text-xs text-gray-400 truncate max-w-xs" title="${activity.userAgent || 'Unknown'}">
+                            ${(activity.userAgent || 'Unknown').substring(0, 30)}...
+                        </div>
+                    </td>
+                `;
+        
+                tbody.appendChild(row);
+            });
+
+            lucide.createIcons();
+        }
+
+        function filterActivityLog() {
+            const searchTerm = document.getElementById('activity-search').value.toLowerCase();
+            const moduleFilter = document.getElementById('activity-module-filter').value;
+    
+            if (!window.activityLogData) return;
+    
+            const filtered = window.activityLogData.filter(activity => {
+                const matchesSearch = !searchTerm || 
+                activity.action.toLowerCase().includes(searchTerm) ||
+                (activity.details && JSON.stringify(activity.details).toLowerCase().includes(searchTerm)) ||
+                (activity.employeeName && activity.employeeName.toLowerCase().includes(searchTerm));
+        
+                const matchesModule = !moduleFilter || activity.module === moduleFilter;
+        
+                return matchesSearch && matchesModule;
+            });
+    
+            // Update counts
+            document.getElementById('activity-showing-count').textContent = filtered.length;
+    
+            if (filtered.length === 0) {
+                document.getElementById('activity-log-container').classList.add('hidden');
+                document.getElementById('activity-log-empty').classList.remove('hidden');
+            } else {
+                document.getElementById('activity-log-container').classList.remove('hidden');
+                document.getElementById('activity-log-empty').classList.add('hidden');
+                displayActivityLog(filtered);
+            }
         }
 
         function updateDashboardUI(user) {
@@ -2632,7 +2882,7 @@
             
             try {
                 let url = `${API_URL}?action=getDocuments`;
-                if (folderId !== 'root') {
+                if (folderId && folderId !== 'root') {
                     url += `&folderId=${folderId}`;
                 }
                 
@@ -2773,10 +3023,7 @@
             // Sort files by date (newest first)
             files.sort((a, b) => new Date(b.date) - new Date(a.date));
             
-            // Show only recent 20 files
-            const recentFiles = files.slice(0, 20);
-            
-            recentFiles.forEach(file => {
+            files.forEach(file => {
                 const icon = getFileIcon(file.type);
                 const size = file.formattedSize || formatFileSize(file.size);
                 const date = formatDate(file.date);
@@ -2894,7 +3141,6 @@
 
         function formatDate(dateString) {
             const date = new Date(dateString);
-            // Return formatted date without "Today", "Yesterday" etc.
             return date.toLocaleDateString('en-US', { 
                 year: 'numeric', 
                 month: 'short', 
@@ -2958,11 +3204,12 @@
                 select.remove(1);
             }
             
-            // Add current folder and its subfolders
+            // Add current folder as first option
             if (state.currentFolder !== 'root') {
                 const currentOption = document.createElement('option');
                 currentOption.value = state.currentFolder;
                 currentOption.textContent = `Current: ${state.currentFolderName}`;
+                currentOption.selected = true;
                 select.appendChild(currentOption);
             }
             
@@ -3085,8 +3332,7 @@
                     name: file.name,
                     mimeType: file.type,
                     bytes: base64,
-                    subfolderId: folderSelect.value === 'root' ? 'root' : folderSelect.value,
-                    description: document.getElementById('file-description').value
+                    subfolderId: folderSelect.value === 'root' ? 'root' : folderSelect.value
                 };
                 
                 const params = new URLSearchParams();
@@ -3139,11 +3385,9 @@
             errorMsg.classList.add('hidden');
             
             try {
-                // Create folder in Google Drive
                 const payload = {
                     name: folderName,
-                    parentId: parentFolder === 'root' ? 'root' : parentFolder,
-                    type: 'folder'
+                    parentId: parentFolder === 'root' ? 'root' : parentFolder
                 };
                 
                 const params = new URLSearchParams();
