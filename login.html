@@ -1123,6 +1123,131 @@
                         </div>
                     </div>
 
+                    <!-- TAB: SETTINGS -->
+                    <div id="dash-view-settings" class="dash-view hidden">
+                        <h2 class="text-2xl font-bold text-[#0A2540] font-heading mb-6">Account Settings</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Change Password Card -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                                <h3 class="font-bold text-[#0A2540] mb-6 flex items-center gap-2 border-b border-gray-200 pb-3">
+                                    <div class="p-2 bg-blue-50 rounded-lg text-[#00D4FF]">
+                                        <i data-lucide="lock" class="w-5 h-5"></i>
+                                    </div>
+                                    Change Password
+                                </h3>
+                                
+                                <form id="password-change-form" onsubmit="changePassword(event)" class="space-y-4">
+                                    <div id="password-change-error" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+                                        Error message will appear here.
+                                    </div>
+                                    
+                                    <div id="password-change-success" class="hidden p-3 bg-green-50 border border-green-200 text-green-700 text-sm rounded-lg">
+                                        Password changed successfully!
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                                        <input type="password" id="current-password" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00D4FF]" placeholder="Enter your current password">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                                        <input type="password" id="new-password" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00D4FF]" placeholder="Enter new password">
+                                        <p class="text-xs text-gray-500 mt-1">Password must be at least 8 characters long.</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+                                        <input type="password" id="confirm-password" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00D4FF]" placeholder="Confirm new password">
+                                    </div>
+                                    
+                                    <div class="pt-2">
+                                        <button type="submit" id="password-change-btn" class="w-full bg-[#0A2540] text-white font-semibold py-3 rounded-lg hover:bg-[#163558] transition-colors">
+                                            Change Password
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Account Information Card -->
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                                <h3 class="font-bold text-[#0A2540] mb-6 flex items-center gap-2 border-b border-gray-200 pb-3">
+                                    <div class="p-2 bg-purple-50 rounded-lg text-purple-600">
+                                        <i data-lucide="user" class="w-5 h-5"></i>
+                                    </div>
+                                    Account Information
+                                </h3>
+                                
+                                <div class="space-y-4">
+                                    <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                        <span class="text-gray-500 font-medium">Employee ID</span>
+                                        <span class="col-span-2 font-semibold text-[#0A2540] bg-gray-50 px-3 py-2 rounded" id="settings-emp-id">--</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                        <span class="text-gray-500 font-medium">Name</span>
+                                        <span class="col-span-2 font-semibold text-[#0A2540] bg-gray-50 px-3 py-2 rounded" id="settings-emp-name">--</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                        <span class="text-gray-500 font-medium">Role</span>
+                                        <span class="col-span-2 font-semibold text-[#0A2540] bg-gray-50 px-3 py-2 rounded" id="settings-emp-role">--</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                        <span class="text-gray-500 font-medium">Department</span>
+                                        <span class="col-span-2 font-semibold text-[#0A2540] bg-gray-50 px-3 py-2 rounded" id="settings-emp-dept">--</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                        <span class="text-gray-500 font-medium">Email</span>
+                                        <span class="col-span-2 font-semibold text-[#0A2540] bg-gray-50 px-3 py-2 rounded break-all" id="settings-emp-email">--</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-4 text-sm items-center">
+                                        <span class="text-gray-500 font-medium">Last Login</span>
+                                        <span class="col-span-2 font-semibold text-[#0A2540] bg-gray-50 px-3 py-2 rounded" id="settings-last-login">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Security Settings Card -->
+                            <div class="md:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                                <h3 class="font-bold text-[#0A2540] mb-6 flex items-center gap-2 border-b border-gray-200 pb-3">
+                                    <div class="p-2 bg-green-50 rounded-lg text-green-600">
+                                        <i data-lucide="shield-check" class="w-5 h-5"></i>
+                                    </div>
+                                    Security Settings
+                                </h3>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-[#0A2540]">Two-Factor Authentication</h4>
+                                            <p class="text-sm text-gray-500">Add an extra layer of security to your account</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span id="2fa-status" class="px-3 py-1 rounded-full text-xs font-bold mr-3 bg-green-100 text-green-800">Enabled</span>
+                                            <button onclick="manage2FA()" class="text-sm text-[#00D4FF] hover:underline">Manage</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                                        <div>
+                                            <h4 class="font-medium text-[#0A2540]">Session Management</h4>
+                                            <p class="text-sm text-gray-500">View and manage active sessions</p>
+                                        </div>
+                                        <button onclick="viewSessions()" class="text-sm text-[#00D4FF] hover:underline">View Sessions</button>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                                        <div>
+                                            <h4 class="font-medium text-[#0A2540]">Activity Log</h4>
+                                            <p class="text-sm text-gray-500">Review your account activity</p>
+                                        </div>
+                                        <button onclick="viewActivityLog()" class="text-sm text-[#00D4FF] hover:underline">View Log</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Placeholder for other tabs -->
                     <div id="dash-view-tasks" class="dash-view hidden text-center pt-20">
                         <i data-lucide="check-square" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
@@ -1133,11 +1258,6 @@
                         <i data-lucide="life-buoy" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
                         <h3 class="text-xl font-bold text-[#0A2540]">Help & Support</h3>
                         <p class="text-gray-500">IT Ticket system integration pending.</p>
-                    </div>
-                     <div id="dash-view-settings" class="dash-view hidden text-center pt-20">
-                        <i data-lucide="settings" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
-                        <h3 class="text-xl font-bold text-[#0A2540]">Account Settings</h3>
-                        <p class="text-gray-500">Security configurations pending.</p>
                     </div>
 
                 </div>
@@ -1513,8 +1633,28 @@
         </div>
     </div>
 
+    <!-- 2FA Management Modal -->
+    <div id="modal-2fa" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-[#F4F6F8]">
+                <h3 class="font-bold text-[#0A2540]">Two-Factor Authentication</h3>
+                <button onclick="closeModal('modal-2fa')" class="text-gray-400 hover:text-red-500">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4 text-center">
+                <i data-lucide="shield-check" class="w-16 h-16 text-[#00D4FF] mx-auto"></i>
+                <h4 class="font-bold text-[#0A2540]">2FA is Enabled</h4>
+                <p class="text-sm text-gray-500">Two-factor authentication is currently protecting your account.</p>
+                <div class="pt-4">
+                    <button onclick="disable2FA()" class="px-4 py-2 rounded-lg text-sm font-bold text-white bg-red-600 hover:bg-red-700">Disable 2FA</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyzpqTFuWaBpD2_NIseuMiV4-VzWJqN35Q0Zqava6Oal-YmHhWufnb65r_2rGjwEUPO/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbx0jVlJXkk5HTEtwbgALAJimcxuecsrsAVK6goEcmtdlVdbvHDoSAO6hhPMtZnLDfdp/exec";
 
         const state = {
             isLoggedIn: false,
@@ -1756,10 +1896,142 @@
 
                     // CRITICAL: Update Dashboard Sidebar/Nav with the fetched photo
                     updateDashboardUI(state.user);
+                    
+                    // Update Settings Tab
+                    updateSettingsTab(p);
                 }
             } catch (e) {
                 console.error("Failed to load profile details", e);
             }
+        }
+
+        function updateSettingsTab(profileData) {
+            document.getElementById('settings-emp-id').textContent = profileData.id;
+            document.getElementById('settings-emp-name').textContent = profileData.name;
+            document.getElementById('settings-emp-role').textContent = profileData.role;
+            document.getElementById('settings-emp-dept').textContent = profileData.department;
+            document.getElementById('settings-emp-email').textContent = profileData.email;
+            
+            // Set last login time
+            const now = new Date();
+            document.getElementById('settings-last-login').textContent = now.toLocaleString();
+            
+            // Update 2FA status
+            const statusEl = document.getElementById('2fa-status');
+            if (state.user.twoFactorSecret) {
+                statusEl.textContent = "Enabled";
+                statusEl.className = "px-3 py-1 rounded-full text-xs font-bold mr-3 bg-green-100 text-green-800";
+            } else {
+                statusEl.textContent = "Disabled";
+                statusEl.className = "px-3 py-1 rounded-full text-xs font-bold mr-3 bg-red-100 text-red-800";
+            }
+        }
+
+        async function changePassword(e) {
+            e.preventDefault();
+    
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+    
+            const errorMsg = document.getElementById('password-change-error');
+            const successMsg = document.getElementById('password-change-success');
+            const btn = document.getElementById('password-change-btn');
+    
+            // Hide messages
+            errorMsg.classList.add('hidden');
+            successMsg.classList.add('hidden');
+    
+        // Validate
+            if (newPassword.length < 8) {
+                errorMsg.textContent = "Password must be at least 8 characters long.";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+    
+            if (newPassword !== confirmPassword) {
+                errorMsg.textContent = "New passwords do not match.";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+    
+            // Disable button and show loading
+            btn.disabled = true;
+            btn.textContent = "Changing Password...";
+    
+            try {
+                // Create URLSearchParams for form data
+                const params = new URLSearchParams();
+                params.append('action', 'updatePassword');
+                params.append('empId', state.user.id);
+                params.append('currentPassword', currentPassword);
+                params.append('newPassword', newPassword);
+                params.append('confirmPassword', confirmPassword);
+        
+                console.log('Sending password change request with params:', {
+                    action: 'updatePassword',
+                    empId: state.user.id,
+                    currentPassword: '***',
+                    newPassword: '***',
+                    confirmPassword: '***'
+                });
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params
+                });
+        
+                const result = await response.json();
+                console.log('Password change response:', result);
+            
+                if (result.status === 'success') {
+                    successMsg.textContent = result.message;
+                    successMsg.classList.remove('hidden');
+            
+                    // Clear form
+                    document.getElementById('password-change-form').reset();
+            
+                    // Log out user after successful password change (recommended security practice)
+                    setTimeout(() => {
+                        alert("Password changed successfully. Please login again with your new password.");
+                        handleLogout();
+                    }, 2000);
+            
+                } else {
+                    errorMsg.textContent = result.message || "Failed to change password.";
+                    errorMsg.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error('Password change error:', err);
+                errorMsg.textContent = "An error occurred. Please try again. Error: " + err.message;
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Change Password";
+            }
+        }
+
+        function manage2FA() {
+            document.getElementById('modal-2fa').classList.remove('hidden');
+        }
+
+        function disable2FA() {
+            if (confirm("Are you sure you want to disable Two-Factor Authentication? This reduces your account security.")) {
+                alert("2FA disabled (this would call backend to remove 2FA secret).");
+                closeModal('modal-2fa');
+                // In a real implementation, you would call an API endpoint to remove the 2FA secret
+            }
+        }
+
+        function viewSessions() {
+            alert("Session management feature coming soon!");
+        }
+
+        function viewActivityLog() {
+            alert("Activity log feature coming soon!");
         }
 
         function updateDashboardUI(user) {
@@ -3179,6 +3451,10 @@
                 }
                 if (tabName === 'documents') {
                     loadDocuments();
+                }
+                if (tabName === 'settings') {
+                    // Settings tab doesn't need to load additional data
+                    // Profile data is already loaded
                 }
             }
         
