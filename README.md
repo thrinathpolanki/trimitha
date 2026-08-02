@@ -312,7 +312,7 @@ Copyright (c) 2026 trimithathecompany
 
 ## 💬 Support
 
-- 🐛 Found a bug? [Open an issue](https://github.com/trimithathecompany/trimitha/issues)
+- 🐛 Found a bug? [Open an issue](https://github.com/thrinathpolanki/trimitha/issues)
 - 💡 Have an idea? Start a discussion in the Issues tab
 - 📧 Reach the team via the [Contact page](https://www.trimitha.co.in/contact.html)
 
@@ -324,4 +324,4 @@ Copyright (c) 2026 trimithathecompany
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0A2540,100:1E90FF&height=120&section=footer" width="100%"/>
 
-<div align="center">Made with ❤️ by <a href="https://github.com/trimithathecompany">Trimitha</a></div>
+<div align="center">Made with ❤️ by <a href="https://github.com/trimithathecompany">Thrinath Polanki</a></div>
