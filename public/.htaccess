@@ -1,0 +1,37 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Redirect /founder to /founder/ (with trailing slash)
+RewriteRule ^founder$ /founder/ [R=301,L]
+
+# Redirect /founder/index.html to /founder/
+RewriteRule ^founder/index\.html$ /founder/ [R=301,L]
+
+# Redirect /founder/index to /founder/
+RewriteRule ^founder/index$ /founder/ [R=301,L]
+
+# Redirect /founder/ to /founder/index.html (internal - no redirect)
+# This ensures /founder/ loads index.html without changing URL
+RewriteRule ^founder/$ /founder/index.html [L]
+
+# Prevent directory listing
+Options -Indexes
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Cache static files for 1 year (optional - improves performance)
+<FilesMatch "\.(jpg|jpeg|png|gif|ico|svg|webp|css|js|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# Prevent access to .htaccess and other sensitive files
+<FilesMatch "^\.(htaccess|htpasswd|env|git)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Error pages (optional)
+ErrorDocument 404 /404.html
+ErrorDocument 403 /403.html
+ErrorDocument 500 /500.html
