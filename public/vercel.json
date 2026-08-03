@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/founder",
+      "destination": "/founder/"
+    },
+    {
+      "source": "/founder/index.html",
+      "destination": "/founder/"
+    }
+  ]
+}
