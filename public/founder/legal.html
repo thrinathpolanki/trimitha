@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Information | Thrinath Polanki</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            bg: '#0f172a',
+                            card: '#1e293b',
+                            border: '#334155'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-dark-bg dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+
+    <!-- Simple Nav -->
+    <nav class="w-full py-6 px-4 sm:px-6 lg:px-8 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-sm fixed top-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="font-heading font-bold text-xl tracking-tight">
+                Thrinath<span class="text-brand-500">.</span>
+            </a>
+            <a href="index.html" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        
+        <h1 class="font-heading text-4xl font-bold mb-12 dark:text-white">Legal Information</h1>
+
+        <!-- Privacy Policy -->
+        <section id="privacy" class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 flex items-center text-slate-900 dark:text-white">
+                <i class="fas fa-shield-alt text-brand-500 mr-3"></i> Privacy Policy
+            </h2>
+            <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-relaxed space-y-4">
+                <p><strong>Effective Date:</strong> 08 January 2026</p>
+                <p>
+                    Thank you for visiting the personal portfolio of Thrinath Polanki. Your privacy is important to us. This Privacy Policy explains how we handle information when you visit this website.
+                </p>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mt-6">1. Information Collection</h3>
+                <p>
+                    This is a static portfolio website. We do not require you to create an account or log in to view the content. We do not automatically collect personally identifiable information (PII) such as your name, address, or phone number unless you voluntarily provide it through a contact form or email.
+                </p>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mt-6">2. Cookies & Local Storage</h3>
+                <p>
+                    We use simple local storage to remember your preference for "Dark Mode" or "Light Mode" to enhance your browsing experience. This data is stored on your device and is not transmitted to any server.
+                </p>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mt-6">3. External Links</h3>
+                <p>
+                    This website contains links to external sites (e.g., LinkedIn, GitHub, Trimitha). We are not responsible for the privacy practices or content of those external sites.
+                </p>
+            </div>
+        </section>
+
+        <hr class="border-slate-200 dark:border-slate-700 my-12">
+
+        <!-- Terms of Use -->
+        <section id="terms">
+            <h2 class="text-2xl font-bold mb-6 flex items-center text-slate-900 dark:text-slate-200">
+                <i class="fas fa-gavel text-brand-500 mr-3"></i> Terms of Use
+            </h2>
+            <div class="prose dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 leading-relaxed space-y-4">
+                <p>
+                    By accessing this website, you agree to the following terms and conditions.
+                </p>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mt-6">1. Intellectual Property</h3>
+                <p>
+                    All content, designs, code, and graphics on this website are the intellectual property of Thrinath Polanki and Trimitha, unless otherwise noted. You may not reproduce, distribute, or use these materials for commercial purposes without explicit written permission.
+                </p>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mt-6">2. Disclaimer</h3>
+                <p>
+                    The content provided on this website is for informational purposes only. While I strive to keep information accurate, I make no warranties regarding the completeness or accuracy of the information.
+                </p>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 mt-6">3. Contact</h3>
+                <p>
+                    For any questions regarding these terms, please contact me at <a href="mailto:polankithrinath@gmail.com" class="text-brand-500 hover:underline">polankithrinath@gmail.com</a>.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; 2026 Thrinath Polanki. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Logic
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</body>
+
+</html>
