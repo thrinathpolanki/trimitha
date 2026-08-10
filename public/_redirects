@@ -1,0 +1,22 @@
+# ======================================================
+# Trimitha - Netlify _redirects Configuration
+# Purpose: Single 301 redirect to canonical URL
+# Final Destination: https://www.trimitha.co.in/
+# ======================================================
+
+# HTTP → HTTPS (Single 301)
+http://trimitha.co.in/* https://www.trimitha.co.in/:splat 301!
+http://www.trimitha.co.in/* https://www.trimitha.co.in/:splat 301!
+
+# NON-WWW → WWW (Single 301)
+https://trimitha.co.in/* https://www.trimitha.co.in/:splat 301!
+
+# Remove index.html
+/index.html / 301!
+/*/index.html /:splat/ 301!
+
+# Remove .html extension (only if not in request)
+/*.html /:splat 301!
+
+# Remove trailing slash (for non-directories)
+/*/ /:splat 301!
