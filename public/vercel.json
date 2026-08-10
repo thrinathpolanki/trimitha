@@ -7,6 +7,64 @@
     {
       "source": "/founder/index.html",
       "destination": "/founder/"
+    },
+    {
+      "source": "/founder/index",
+      "destination": "/founder/"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/founder/index.html",
+      "destination": "/founder/",
+      "permanent": true
+    },
+    {
+      "source": "/founder/index",
+      "destination": "/founder/",
+      "permanent": true
+    },
+    {
+      "source": "/founder",
+      "destination": "/founder/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    },
+    {
+      "source": "/founder/tpimgs/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/Images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }
