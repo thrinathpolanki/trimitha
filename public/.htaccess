@@ -1,37 +1,112 @@
-# Enable Rewrite Engine
-RewriteEngine On
+# ======================================================
+# Trimitha - Apache .htaccess Configuration
+# FINAL CANONICAL URL: https://www.trimitha.co.in/
+# All redirects: Single 301 to canonical destination
+# ======================================================
 
-# Redirect /founder to /founder/ (with trailing slash)
-RewriteRule ^founder$ /founder/ [R=301,L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # ==================================================
+    # REDIRECT TO HTTPS + WWW (Single 301 Redirect)
+    # ==================================================
+    
+    # Combined rule: Redirect HTTP (any host) to HTTPS WWW
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} !^www\.trimitha\.co\.in$ [NC]
+    RewriteRule ^(.*)$ https://www.trimitha.co.in/$1 [R=301,L]
+    
+    # ==================================================
+    # REMOVE .html EXTENSION (Single 301 Redirect)
+    # ==================================================
+    
+    # Redirect .html URLs to extensionless (for SEO and redirect removal)
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+    
+    # ==================================================
+    # INTERNAL REWRITE (No redirect - serves .html files)
+    # ==================================================
+    
+    # If request is not for an existing file or directory
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # And the .html version exists
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    # Serve the .html file (internal rewrite, not redirect)
+    RewriteRule ^(.*)$ $1.html [L]
+    
+    # ==================================================
+    # REMOVE INDEX.HTML (Single 301 Redirect)
+    # ==================================================
+    
+    # Redirect /index to root
+    RewriteRule ^index\.html?$ / [R=301,L,NC]
+    
+    # Redirect /something/index.html to /something/
+    RewriteRule ^(.*)/index\.html?$ /$1/ [R=301,L,NC]
+    
+    # ==================================================
+    # ENFORCE TRAILING SLASH CONSISTENCY
+    # ==================================================
+    
+    # Add trailing slash to directories (but not files)
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteRule ^(.*)$ /$1/ [R=301,L]
+    
+    # Remove trailing slash for non-directory URLs
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [R=301,L]
+    
+</IfModule>
 
-# Redirect /founder/index.html to /founder/
-RewriteRule ^founder/index\.html$ /founder/ [R=301,L]
+# ======================================================
+# SECURITY HEADERS
+# ======================================================
 
-# Redirect /founder/index to /founder/
-RewriteRule ^founder/index$ /founder/ [R=301,L]
+<IfModule mod_headers.c>
+    # Force HTTPS
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Security headers
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Content-Security-Policy "upgrade-insecure-requests"
+    
+    # Cache control for HTML
+    Header set Cache-Control "max-age=3600, public" "expr=-z %{REQUEST_FILENAME}"
+</IfModule>
 
-# Redirect /founder/ to /founder/index.html (internal - no redirect)
-# This ensures /founder/ loads index.html without changing URL
-RewriteRule ^founder/$ /founder/index.html [L]
+# ======================================================
+# CACHE CONTROL
+# ======================================================
 
-# Prevent directory listing
-Options -Indexes
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/html "access plus 1 hour"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
 
-# Set default charset
-AddDefaultCharset UTF-8
+# ======================================================
+# COMPRESSION
+# ======================================================
 
-# Cache static files for 1 year (optional - improves performance)
-<FilesMatch "\.(jpg|jpeg|png|gif|ico|svg|webp|css|js|woff|woff2|ttf|eot)$">
-    Header set Cache-Control "max-age=31536000, public"
-</FilesMatch>
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json
+</IfModule>
 
-# Prevent access to .htaccess and other sensitive files
-<FilesMatch "^\.(htaccess|htpasswd|env|git)">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
+# ======================================================
+# ERROR DOCUMENTS
+# ======================================================
 
-# Error pages (optional)
-ErrorDocument 404 /404.html
-ErrorDocument 403 /403.html
-ErrorDocument 500 /500.html
+ErrorDocument 404 /404
+ErrorDocument 500 /500
