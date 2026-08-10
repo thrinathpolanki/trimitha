@@ -1,4 +1,35 @@
+# ======================================================
+# TRIMITHA - robots.txt
+# Final Host: https://www.trimitha.co.in/
+# Sitemap: https://www.trimitha.co.in/sitemap.xml
+# ======================================================
+
 User-agent: *
 Allow: /
 
+# Allow all important content
+Allow: /founder/
+Allow: /Images/
+Allow: /founder/tpimgs/
+
+# Block only sensitive/private areas
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /tmp/
+Disallow: /logs/
+
+# Do NOT block query parameters (important for tracking)
+# Removed: Disallow: /*?* and /*&*
+
+# Sitemap location
 Sitemap: https://www.trimitha.co.in/sitemap.xml
+
+# Crawl delay (gentle)
+Crawl-delay: 1
+
+# Googlebot specific
+User-agent: Googlebot
+Allow: /
+Allow: /founder/
+Allow: /Images/
+Allow: /founder/tpimgs/
