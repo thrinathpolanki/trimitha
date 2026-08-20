@@ -11,6 +11,13 @@
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     
+    <!-- SEO FIX: no favicon was declared anywhere in <head>. Missing favicons trigger
+         "favicon missing" warnings in Lighthouse and can affect how the listing looks
+         in Google Search results / browser tabs. Reusing the existing brand logo so
+         no new asset or visual change is introduced. -->
+    <link rel="icon" href="Trimitha%20Logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="Trimitha%20Logo.png">
+
     <link rel="canonical" href="https://www.trimitha.co.in/founder/">
     
     <link rel="alternate" hreflang="en" href="https://www.trimitha.co.in/founder/">
@@ -171,9 +178,9 @@
       "@type": "Organization",
       "name": "Trimitha",
       "description": "A technology-driven company built on Trust, Thought, and Technology with togetherness. Led by CEO & Founder Polanki Thrinath and AI COO & President Polanki Bala Thripura.",
-      "url": "https://trimitha.co.in",
-      "logo": "https://trimitha.co.in/Images/Trimitha%20Logo.png",
-      "image": "https://trimitha.co.in/Images/Trimitha%20Logo.png",
+      "url": "https://www.trimitha.co.in",
+      "logo": "https://www.trimitha.co.in/Images/Trimitha%20Logo.png",
+      "image": "https://www.trimitha.co.in/Images/Trimitha%20Logo.png",
       "foundingDate": "2025-06-26",
       "founder": {
         "@type": "Person",
@@ -284,12 +291,6 @@
           "position": 2,
           "name": "Founder",
           "item": "https://www.trimitha.co.in/founder/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Polanki Bala Thripura - COO & President",
-          "item": "https://www.trimitha.co.in/founder/coo.html"
         }
       ]
     }
@@ -416,13 +417,13 @@
         <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
             <div class="flex justify-between h-16 sm:h-20 items-center">
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="index.html" class="font-heading font-bold text-lg sm:text-2xl tracking-tight z-50">
+                    <a href="/founder/" class="font-heading font-bold text-lg sm:text-2xl tracking-tight z-50">
                         Polanki<span class="text-brand-500"> Thrinath</span>
                     </a>
                 </div>
 
                 <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                    <a href="index.html" class="text-sm font-medium hover:text-brand-500 transition-colors">Home</a>
+                    <a href="/founder/" class="text-sm font-medium hover:text-brand-500 transition-colors">Home</a>
                     <a href="#about" class="text-sm font-medium hover:text-brand-500 transition-colors">About</a>
                     <a href="#trimitha" class="hover:opacity-80 transition-opacity flex items-center">
                         <img src="Trimitha%20Logo.png" alt="Trimitha - Founded by Polanki Thrinath" class="h-7 w-auto">
@@ -456,7 +457,7 @@
         
         <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-dark-card border-b dark:border-dark-border shadow-xl absolute w-full left-0 top-16 sm:top-20 max-h-[80vh] overflow-y-auto">
             <div class="px-4 pt-2 pb-6 space-y-1 text-center">
-                <a href="index.html" class="block px-3 py-2.5 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Home</a>
+                <a href="/founder/" class="block px-3 py-2.5 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Home</a>
                 <a href="#about" class="block px-3 py-2.5 rounded-lg text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">About</a>
                 <a href="#trimitha" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     <img src="Trimitha%20Logo.png" alt="Trimitha" class="h-7 w-auto mx-auto">
@@ -960,7 +961,7 @@ As the COO & President of Trimitha, Polanki Bala Thripura is a human-centric AI 
         // BACKEND CONFIG — same values go in all 5 HTML files
         // ============================================
         const API_CONFIG = {
-            WEB_APP_URL: 'https://script.google.com/macros/s/########################################################################/exec',
+            WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbyDX-F0xouMP66e-kWMQCA_qwF0vL6wmKjuU43wIQ4nlPN3Hwipg4knXhRBFCZFNl9R/exec',
             API_KEY: '63b49552-38af-45c6-bcff-304a748a2772'
         };
 
