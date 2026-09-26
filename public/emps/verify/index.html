@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Employee Verification | Trimitha</title>
+
+    <!-- Primary SEO Meta Tags -->
+    <meta name="description" content="Verify the authenticity of a Trimitha employee identification card.">
+    <meta name="author" content="Trimitha">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <link rel="canonical" href="https://trimitha.co.in/emps/verify/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://trimitha.co.in/emps/verify/">
+    <meta property="og:title" content="Employee Verification | Trimitha">
+    <meta property="og:description" content="Verify the authenticity of a Trimitha employee identification card.">
+    <meta property="og:image" content="https://trimitha.co.in/Images/Trimitha%20Logo.png">
+    <meta property="og:site_name" content="Trimitha">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://trimitha.co.in/emps/verify/">
+    <meta name="twitter:title" content="Employee Verification | Trimitha">
+    <meta name="twitter:description" content="Verify the authenticity of a Trimitha employee identification card.">
+    <meta name="twitter:image" content="https://trimitha.co.in/Images/Trimitha%20Logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        brand: { 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+                        accent: { 400: '#22d3ee', 500: '#06b6d4' },
+                        dark: { bg: '#0a0f1e', card: '#10192e', border: '#20304d' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Employee Verification | Trimitha",
+      "description": "Verify the authenticity of a Trimitha employee identification card.",
+      "url": "https://trimitha.co.in/emps/verify/",
+      "inLanguage": "en-US",
+      "isPartOf": { "@type": "Organization", "name": "Trimitha", "url": "https://trimitha.co.in" }
+    }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0a0f1e; }
+        ::-webkit-scrollbar-thumb { background: #20304d; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .glass-nav {
+            background: rgba(11, 18, 32, 0.85);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        body { overflow-x: hidden; width: 100%; }
+
+        @media (max-width: 640px) {
+            .hero-title { font-size: 1.8rem !important; line-height: 1.2 !important; }
+        }
+
+        /* ============================================================
+           SCENE — a slow, low-opacity scan line drifting behind the
+           hero. This replaces the old blurred "blob" background: one
+           quiet ambient motion instead of three competing ones.
+           ============================================================ */
+        .scanline-field {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .scanline-field::before {
+            content: '';
+            position: absolute;
+            left: 0; right: 0;
+            height: 140px;
+            background: linear-gradient(180deg, transparent, rgba(6,182,212,0.10), transparent);
+            animation: driftDown 9s linear infinite;
+        }
+        .dark .scanline-field::before {
+            background: linear-gradient(180deg, transparent, rgba(34,211,238,0.14), transparent);
+        }
+        @keyframes driftDown {
+            0%   { transform: translateY(-160px); }
+            100% { transform: translateY(110vh); }
+        }
+
+        /* ============================================================
+           BADGE — the verification card itself. Modeled on a physical
+           ID card / access badge rather than a generic dashboard card:
+           always rendered as a dark "reader display" regardless of
+           site theme, since it represents a card being read by a
+           machine, not a page section.
+           ============================================================ */
+        .badge-card {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            border-radius: 22px;
+            padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(175deg, #16213b 0%, #0a0f1e 78%);
+            box-shadow:
+                0 30px 60px -24px rgba(0,0,0,0.55),
+                inset 0 0 0 1px rgba(148,163,184,0.14);
+            overflow: hidden;
+            color: #f1f5f9;
+        }
+        .badge-punch {
+            width: 44px;
+            height: 10px;
+            border-radius: 9999px;
+            margin: 0 auto 1.5rem;
+            background: rgba(255,255,255,0.06);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6), inset 0 -1px 0 rgba(255,255,255,0.04);
+        }
+        .badge-sheen {
+            position: absolute;
+            top: 0; bottom: 0;
+            left: -60%;
+            width: 45%;
+            background: linear-gradient(115deg, transparent, rgba(255,255,255,0.10), transparent);
+            transform: skewX(-12deg);
+            animation: sheen 1.6s ease-out 0.15s both;
+        }
+        @keyframes sheen {
+            0%   { left: -60%; opacity: 0; }
+            15%  { opacity: 1; }
+            100% { left: 130%; opacity: 0; }
+        }
+
+        .badge-photo-frame {
+            position: relative;
+            width: 92px;
+            height: 92px;
+            margin: 0 auto 1rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0a0f1e;
+            border: 1px solid rgba(148,163,184,0.2);
+        }
+        .badge-photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .badge-photo-frame .fallback-icon {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .badge-corner {
+            position: absolute;
+            width: 16px; height: 16px;
+            border-color: #22d3ee;
+            opacity: 0;
+            animation: cornerLockOn 0.6s ease-out 0.3s forwards;
+        }
+        .badge-corner.tl { top: 4px; left: 4px; border-top: 2px solid; border-left: 2px solid; border-radius: 4px 0 0 0; }
+        .badge-corner.tr { top: 4px; right: 4px; border-top: 2px solid; border-right: 2px solid; border-radius: 0 4px 0 0; }
+        .badge-corner.bl { bottom: 4px; left: 4px; border-bottom: 2px solid; border-left: 2px solid; border-radius: 0 0 0 4px; }
+        .badge-corner.br { bottom: 4px; right: 4px; border-bottom: 2px solid; border-right: 2px solid; border-radius: 0 0 4px 0; }
+        @keyframes cornerLockOn { from { opacity: 0; } to { opacity: 0.85; } }
+
+        .badge-barcode {
+            height: 13px;
+            border-radius: 2px;
+            margin: 1.1rem 0 0.9rem;
+            background-image: repeating-linear-gradient(
+                90deg,
+                rgba(226,232,240,0.5) 0px, rgba(226,232,240,0.5) 2px,
+                transparent 2px, transparent 4px,
+                rgba(226,232,240,0.22) 4px, rgba(226,232,240,0.22) 5px,
+                transparent 5px, transparent 8px
+            );
+        }
+        .badge-id {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .badge-status-bar {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 7px;
+        }
+        .badge-status-bar.active   { background: linear-gradient(90deg, #10b981, #34d399); }
+        .badge-status-bar.inactive { background: linear-gradient(90deg, #d97706, #f59e0b); }
+
+        /* Ink-stamp: the "verified" mark that punches onto the badge */
+        .badge-stamp {
+            position: absolute;
+            top: 14px; right: 14px;
+            width: 54px; height: 54px;
+            border-radius: 9999px;
+            border: 2.5px solid #34d399;
+            display: flex; align-items: center; justify-content: center;
+            transform: rotate(-14deg) scale(0);
+            opacity: 0;
+            animation: stampDown 0.5s cubic-bezier(.2,1.4,.4,1) 0.55s forwards;
+        }
+        .badge-stamp i { color: #34d399; font-size: 1.35rem; }
+        @keyframes stampDown {
+            0%   { transform: rotate(-14deg) scale(2.2); opacity: 0; }
+            60%  { transform: rotate(-14deg) scale(0.92); opacity: 1; }
+            100% { transform: rotate(-14deg) scale(1); opacity: 1; }
+        }
+
+        /* Rejected-card treatment for inactive / not-found — a redacted
+           silhouette rather than the full badge, since no personal
+           data may be shown in these states. */
+        .badge-reject {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            border-radius: 22px;
+            padding: 2rem 1.5rem 1.5rem;
+            border: 1.5px dashed rgba(148,163,184,0.35);
+            background: rgba(148,163,184,0.04);
+            animation: rejectShake 0.4s ease-out 0.05s both;
+        }
+        .dark .badge-reject { background: rgba(15,23,42,0.4); }
+        @keyframes rejectShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-3px); }
+            80% { transform: translateX(2px); }
+        }
+        .redacted-bar {
+            height: 12px;
+            border-radius: 4px;
+            background: repeating-linear-gradient(
+                135deg,
+                rgba(148,163,184,0.35) 0px, rgba(148,163,184,0.35) 6px,
+                transparent 6px, transparent 12px
+            );
+        }
+
+        /* Scanner-reader loading skeleton */
+        .reader-frame {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            border-radius: 22px;
+            padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(175deg, #16213b 0%, #0a0f1e 78%);
+            overflow: hidden;
+            box-shadow: 0 30px 60px -24px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(148,163,184,0.14);
+        }
+        .reader-beam {
+            position: absolute;
+            left: 8%; right: 8%;
+            height: 3px;
+            border-radius: 2px;
+            background: #22d3ee;
+            box-shadow: 0 0 12px 2px rgba(34,211,238,0.7);
+            animation: beamSweep 1.3s ease-in-out infinite;
+        }
+        @keyframes beamSweep {
+            0%   { top: 14%; opacity: 0; }
+            10%  { opacity: 1; }
+            90%  { opacity: 1; }
+            100% { top: 86%; opacity: 0; }
+        }
+        .reader-placeholder-frame {
+            width: 92px; height: 92px; margin: 0 auto 1rem;
+            border-radius: 16px;
+            border: 1px dashed rgba(148,163,184,0.3);
+        }
+        .reader-placeholder-line {
+            height: 10px; border-radius: 4px;
+            background: rgba(148,163,184,0.18);
+        }
+
+        .verify-state { display: none; }
+        .verify-state.active { display: block; animation: fadeInUp 0.45s ease-out both; }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================================
+           MODAL — presents the same badge component rather than a
+           separate icon-in-a-circle dialog.
+           ============================================================ */
+        #verify-modal-backdrop {
+            position: fixed; inset: 0;
+            background: rgba(5, 8, 18, 0.65);
+            backdrop-filter: blur(6px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        #verify-modal-backdrop.open { opacity: 1; pointer-events: auto; }
+        #verify-modal {
+            width: 100%; max-width: 340px;
+            transform: translateY(24px) scale(0.97);
+            opacity: 0;
+            transition: transform 0.32s cubic-bezier(.2,.9,.3,1), opacity 0.3s ease;
+        }
+        #verify-modal-backdrop.open #verify-modal { transform: translateY(0) scale(1); opacity: 1; }
+
+        .modal-close-btn {
+            position: absolute; top: -14px; right: -14px;
+            width: 34px; height: 34px; border-radius: 9999px;
+            background: #fff; color: #0a0f1e;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .badge-sheen, .badge-corner, .badge-stamp, .badge-reject,
+            .reader-beam, .scanline-field::before, .verify-state.active,
+            #verify-modal, #verify-modal-backdrop {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-dark-bg dark:text-slate-100 font-sans antialiased transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Header / Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+            <div class="flex justify-between h-16 sm:h-20 items-center">
+                <a href="/index.html" class="hover:opacity-80 transition-opacity flex items-center gap-2">
+                    <img src="/Images/Trimitha%20Logo.png" alt="Trimitha" class="h-7 sm:h-8 w-auto">
+                    <span class="font-heading font-bold text-lg sm:text-xl tracking-tight hidden sm:inline">Trimitha</span>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="/index.html" class="text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a>
+                    <a href="/emps/index.html" class="text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Our Team</a>
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle Dark Mode">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="mobile-theme-toggle" class="p-2 text-slate-700 dark:text-slate-300 focus:outline-none" aria-label="Toggle Dark Mode">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Verification Area -->
+    <section class="relative flex items-center justify-center overflow-hidden px-3 sm:px-4" style="padding-top: 8rem; padding-bottom: 4rem;">
+        <div class="scanline-field"></div>
+
+        <div class="max-w-xl mx-auto px-3 sm:px-4 relative z-10 text-center w-full">
+
+            <p class="text-xs sm:text-sm font-semibold text-cyan-600 dark:text-cyan-400 tracking-wide mb-2">
+                <i class="fas fa-shield-halved mr-1.5"></i>Official Trimitha verification
+            </p>
+
+            <h1 class="font-heading hero-title text-3xl sm:text-4xl font-bold mb-3 leading-[1.15]">
+                Employee identity verification
+            </h1>
+            <p class="text-base sm:text-lg font-medium text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed mb-9">
+                Scan result for a Trimitha employee ID card.
+            </p>
+
+            <div aria-live="polite" aria-atomic="true">
+
+                <!-- LOADING STATE -->
+                <div id="state-loading" class="verify-state active">
+                    <div class="reader-frame">
+                        <div class="reader-beam"></div>
+                        <div class="reader-placeholder-frame"></div>
+                        <div class="space-y-2 max-w-[160px] mx-auto mb-1">
+                            <div class="reader-placeholder-line w-full"></div>
+                            <div class="reader-placeholder-line w-2/3 mx-auto"></div>
+                        </div>
+                    </div>
+                    <p class="mt-5 text-sm font-medium text-slate-500 dark:text-slate-400">
+                        Reading employee ID<span class="inline-block animate-pulse">…</span>
+                    </p>
+                </div>
+
+                <!-- SUCCESS / ACTIVE STATE -->
+                <div id="state-success" class="verify-state">
+                    <div class="badge-card">
+                        <div class="badge-sheen"></div>
+                        <div class="badge-stamp"><i class="fas fa-check"></i></div>
+                        <div class="badge-punch"></div>
+
+                        <div class="badge-photo-frame" id="success-avatar-wrap">
+                            <div class="fallback-icon"><i class="fas fa-user-tie text-3xl text-slate-500"></i></div>
+                            <span class="badge-corner tl"></span>
+                            <span class="badge-corner tr"></span>
+                            <span class="badge-corner bl"></span>
+                            <span class="badge-corner br"></span>
+                        </div>
+
+                        <h3 id="success-name" class="font-heading font-bold text-lg text-white text-center"></h3>
+                        <p id="success-designation" class="text-sm font-medium text-cyan-400 text-center mt-0.5"></p>
+
+                        <div class="badge-barcode"></div>
+
+                        <div class="flex justify-between items-baseline text-xs text-slate-400 mb-1">
+                            <span>Employee ID</span>
+                            <span id="success-id" class="badge-id text-slate-100 text-sm"></span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Active employee
+                        </div>
+
+                        <div class="badge-status-bar active"></div>
+                    </div>
+
+                    <p class="mt-5 text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
+                        Verified against the official Trimitha employee registry.
+                    </p>
+
+                    <a id="success-profile-link" href="#" target="_blank" rel="noopener noreferrer"
+                       class="mt-5 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold hover:opacity-90 transition-all shadow-md">
+                        View official profile <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- INACTIVE / REVOKED STATE -->
+                <div id="state-inactive" class="verify-state">
+                    <div class="badge-reject">
+                        <div class="reader-placeholder-frame mb-4 flex items-center justify-center">
+                            <i class="fas fa-triangle-exclamation text-2xl text-amber-500"></i>
+                        </div>
+                        <div class="space-y-2 max-w-[160px] mx-auto mb-4">
+                            <div class="redacted-bar w-full"></div>
+                            <div class="redacted-bar w-2/3 mx-auto"></div>
+                        </div>
+                        <div class="flex justify-between items-baseline text-xs text-slate-400 mb-1 max-w-[200px] mx-auto">
+                            <span>Employee ID</span>
+                            <span id="inactive-id" class="badge-id text-slate-700 dark:text-slate-200 text-sm"></span>
+                        </div>
+                        <div class="flex items-center justify-center gap-1.5 text-xs font-semibold text-amber-500 mt-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Not currently active
+                        </div>
+                        <div class="badge-status-bar inactive"></div>
+                    </div>
+                    <h2 class="font-heading text-lg font-bold mt-5 mb-1.5 dark:text-white">Employee ID not active</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
+                        This ID is registered with Trimitha but is not currently active. Contact Trimitha if this seems wrong.
+                    </p>
+                </div>
+
+                <!-- NOT FOUND STATE -->
+                <div id="state-notfound" class="verify-state">
+                    <div class="badge-reject">
+                        <div class="reader-placeholder-frame mb-4 flex items-center justify-center">
+                            <i class="fas fa-xmark text-2xl text-rose-500"></i>
+                        </div>
+                        <div class="space-y-2 max-w-[160px] mx-auto mb-4">
+                            <div class="redacted-bar w-full"></div>
+                            <div class="redacted-bar w-2/3 mx-auto"></div>
+                        </div>
+                        <p class="text-xs uppercase tracking-wide text-slate-400 mb-1">Employee ID</p>
+                        <p id="notfound-id" class="badge-id text-sm text-slate-700 dark:text-slate-200 break-all"></p>
+                    </div>
+                    <h2 class="font-heading text-lg font-bold mt-5 mb-1.5 dark:text-white">Employee not verified</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
+                        This ID could not be matched to the Trimitha employee registry. Contact Trimitha if you believe this is an error.
+                    </p>
+                </div>
+
+                <!-- MISSING ID STATE -->
+                <div id="state-missing" class="verify-state">
+                    <i class="fas fa-circle-question text-4xl text-slate-400 dark:text-slate-500 mb-3"></i>
+                    <h2 class="font-heading text-lg font-bold mb-1.5 dark:text-white">Invalid verification request</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto mb-5">
+                        No employee ID was provided for verification.
+                    </p>
+                    <a href="/index.html" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold hover:opacity-90 transition-all shadow-md">
+                        Return to Trimitha
+                    </a>
+                </div>
+
+                <!-- REGISTRY / NETWORK ERROR STATE -->
+                <div id="state-error" class="verify-state">
+                    <i class="fas fa-plug-circle-exclamation text-4xl text-slate-400 dark:text-slate-500 mb-3"></i>
+                    <h2 class="font-heading text-lg font-bold mb-1.5 dark:text-white">Verification unavailable</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
+                        We couldn't reach the Trimitha employee registry right now. Please try again shortly.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-7">
+                <button id="verify-another-toggle" type="button"
+                        class="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded">
+                    Verify another ID
+                </button>
+                <form id="verify-another-form" class="hidden mt-3 flex items-center gap-2 justify-center" role="search">
+                    <label for="verify-another-input" class="sr-only">Employee ID</label>
+                    <input id="verify-another-input" type="text" placeholder="AB-XXXXXXXX" autocomplete="off"
+                           class="w-40 sm:w-48 px-3 py-2 rounded-full border border-slate-300 dark:border-dark-border bg-white dark:bg-dark-card text-sm text-center font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <button type="submit" class="px-4 py-2 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-colors">Check</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUCCESS MODAL -->
+    <div id="verify-modal-backdrop" role="presentation">
+        <div id="verify-modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading" aria-describedby="modal-message">
+            <div class="badge-card" style="padding-top: 2.25rem;">
+                <button id="modal-close-btn" type="button" aria-label="Close" class="modal-close-btn">
+                    <i class="fas fa-xmark text-sm"></i>
+                </button>
+
+                <div class="badge-sheen" id="modal-sheen"></div>
+                <div class="badge-stamp" id="modal-stamp"><i class="fas fa-check"></i></div>
+                <div class="badge-punch"></div>
+
+                <div class="badge-photo-frame" id="modal-avatar-wrap">
+                    <div class="fallback-icon"><i class="fas fa-user-tie text-3xl text-slate-500"></i></div>
+                    <span class="badge-corner tl"></span>
+                    <span class="badge-corner tr"></span>
+                    <span class="badge-corner bl"></span>
+                    <span class="badge-corner br"></span>
+                </div>
+
+                <h2 id="modal-heading" class="font-heading font-bold text-lg text-white text-center"></h2>
+                <p id="modal-designation" class="text-sm font-medium text-cyan-400 text-center mt-0.5"></p>
+
+                <div class="badge-barcode"></div>
+
+                <div class="flex justify-between items-baseline text-xs text-slate-400 mb-1">
+                    <span>Employee ID</span>
+                    <span id="modal-id" class="badge-id text-slate-100 text-sm"></span>
+                </div>
+                <p id="modal-message" class="text-xs text-slate-400 mt-2 mb-4">
+                    Successfully verified against the Trimitha employee registry.
+                </p>
+
+                <div class="flex flex-col gap-2">
+                    <a id="modal-profile-link" href="#" target="_blank" rel="noopener noreferrer"
+                       class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-white text-slate-900 text-sm font-semibold hover:opacity-90 transition-all">
+                        View employee profile
+                    </a>
+                    <button id="modal-continue-btn" type="button"
+                            class="w-full px-4 py-2.5 rounded-full border border-slate-600 text-slate-200 text-sm font-semibold hover:bg-slate-800 transition-colors">
+                        Close
+                    </button>
+                </div>
+
+                <div class="badge-status-bar active"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 sm:py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 sm:mb-8">
+                <div class="mb-4 md:mb-0 text-center md:text-left flex items-center gap-3">
+                    <img src="/Images/Trimitha%20Logo.png" alt="Trimitha" class="h-8 w-auto">
+                    <div>
+                        <span class="font-heading font-bold text-xl sm:text-2xl text-white">Trimitha</span>
+                        <p class="text-xs sm:text-sm mt-1">Trust • Thought • Technology</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-4 sm:pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] sm:text-sm">
+                <p class="mb-2 md:mb-0 text-center">&copy; 2026 Trimitha. All rights reserved.</p>
+                <div class="flex space-x-4 sm:space-x-6">
+                    <a href="/legal.html#privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/legal.html#terms" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="/emps/index.html" class="hover:text-white transition-colors">Our Team</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Employee verification data (registry + config), kept in its own
+         file so it can be maintained independently of this page. -->
+    <script src="employee-data.js"></script>
+
+    <script>
+        /* ============================================================
+           THEME TOGGLE
+           ============================================================ */
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const htmlEl = document.documentElement;
+
+        function toggleTheme() {
+            htmlEl.classList.toggle('dark');
+            try {
+                localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+            } catch (err) { /* storage may be unavailable; theme still works this load */ }
+        }
+
+        try {
+            if (localStorage.getItem('theme') === 'dark' ||
+                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlEl.classList.add('dark');
+            } else {
+                htmlEl.classList.remove('dark');
+            }
+        } catch (err) {
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) htmlEl.classList.add('dark');
+        }
+
+        if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 20);
+        });
+
+        /* ============================================================
+           URL PARSING + NORMALIZATION
+           ============================================================ */
+        function getRawEmployeeIdFromUrl() {
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const verifyIndex = segments.lastIndexOf('verify');
+            if (verifyIndex === -1 || verifyIndex === segments.length - 1) return null;
+            const last = segments[segments.length - 1];
+            if (last.toLowerCase() === 'index.html') return null;
+            try {
+                return decodeURIComponent(last);
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function normalizeEmployeeId(rawId) {
+            if (!rawId || typeof rawId !== 'string') return '';
+            return rawId.trim().toUpperCase();
+        }
+
+        function isValidEmployeeIdFormat(id) {
+            return VERIFY_CONFIG.idPattern.test(id);
+        }
+
+        /* ============================================================
+           VERIFICATION — single swap point for a real backend later.
+           ============================================================ */
+        async function verifyEmployeeId(normalizedId) {
+            await new Promise(resolve => setTimeout(resolve, 700));
+            try {
+                const match = EMPLOYEE_REGISTRY.find(emp => emp.id === normalizedId);
+                if (!match) return { verified: false, status: 'not_found' };
+                if (match.status !== 'active') {
+                    return { verified: false, status: match.status, employee: sanitizeEmployeeForDisplay(match) };
+                }
+                return { verified: true, status: 'active', employee: sanitizeEmployeeForDisplay(match) };
+            } catch (err) {
+                console.error('Employee registry lookup failed:', err);
+                return { verified: false, status: 'error' };
+            }
+        }
+
+        function sanitizeEmployeeForDisplay(employee) {
+            return {
+                id: String(employee.id || ''),
+                name: String(employee.name || 'Trimitha Employee'),
+                designation: String(employee.designation || ''),
+                photo: typeof employee.photo === 'string' ? employee.photo : null,
+                profile: typeof employee.profile === 'string' ? employee.profile : null
+            };
+        }
+
+        /* ============================================================
+           STATE RENDERING
+           ============================================================ */
+        const stateEls = {
+            loading: document.getElementById('state-loading'),
+            success: document.getElementById('state-success'),
+            inactive: document.getElementById('state-inactive'),
+            notfound: document.getElementById('state-notfound'),
+            missing: document.getElementById('state-missing'),
+            error: document.getElementById('state-error')
+        };
+
+        function showState(name) {
+            Object.entries(stateEls).forEach(([key, el]) => {
+                if (el) el.classList.toggle('active', key === name);
+            });
+        }
+
+        // Forces a CSS animation to replay (used when "Verify another ID"
+        // re-renders a state that's already on screen).
+        function replayAnimation(el) {
+            if (!el) return;
+            el.style.animation = 'none';
+            void el.offsetWidth; // force reflow
+            el.style.animation = '';
+        }
+
+        function buildAvatar(container, employee) {
+            const fallback = container.querySelector('.fallback-icon');
+            const existingImg = container.querySelector('img');
+            if (existingImg) existingImg.remove();
+
+            if (employee.photo) {
+                const img = document.createElement('img');
+                img.src = employee.photo;
+                img.loading = 'lazy';
+                img.alt = employee.designation
+                    ? `Portrait of ${employee.name}, ${employee.designation}`
+                    : `Portrait of ${employee.name}`;
+                img.addEventListener('error', () => {
+                    img.remove();
+                    if (fallback) fallback.style.display = 'flex';
+                });
+                if (fallback) fallback.style.display = 'none';
+                container.insertBefore(img, container.firstChild);
+            } else if (fallback) {
+                fallback.style.display = 'flex';
+            }
+        }
+
+        function renderSuccess(employee) {
+            document.getElementById('success-name').textContent = employee.name;
+            document.getElementById('success-designation').textContent = employee.designation || 'Trimitha Team';
+            document.getElementById('success-id').textContent = employee.id;
+            buildAvatar(document.getElementById('success-avatar-wrap'), employee);
+
+            const link = document.getElementById('success-profile-link');
+            if (employee.profile) {
+                link.href = employee.profile;
+                link.classList.remove('hidden');
+            } else {
+                link.classList.add('hidden');
+            }
+
+            showState('success');
+            replayAnimation(document.querySelector('#state-success .badge-card'));
+            openSuccessModal(employee);
+        }
+
+        function renderInactive(employee) {
+            document.getElementById('inactive-id').textContent = employee.id || '';
+            showState('inactive');
+            replayAnimation(document.querySelector('#state-inactive .badge-reject'));
+        }
+
+        function renderNotFound(displayId) {
+            document.getElementById('notfound-id').textContent = displayId || '(none provided)';
+            showState('notfound');
+            replayAnimation(document.querySelector('#state-notfound .badge-reject'));
+        }
+
+        function renderMissing() { showState('missing'); }
+        function renderRegistryError() { showState('error'); }
+
+        /* ============================================================
+           SUCCESS MODAL
+           ============================================================ */
+        const modalBackdrop = document.getElementById('verify-modal-backdrop');
+        const modalDialog = document.getElementById('verify-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalContinueBtn = document.getElementById('modal-continue-btn');
+        let lastFocusedBeforeModal = null;
+
+        function getFocusableModalEls() {
+            return Array.from(modalDialog.querySelectorAll(
+                'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            ));
+        }
+
+        function openSuccessModal(employee) {
+            document.getElementById('modal-heading').textContent = employee.name;
+            document.getElementById('modal-designation').textContent = employee.designation || 'Trimitha Team';
+            document.getElementById('modal-id').textContent = employee.id;
+            buildAvatar(document.getElementById('modal-avatar-wrap'), employee);
+
+            const profileLink = document.getElementById('modal-profile-link');
+            if (employee.profile) {
+                profileLink.href = employee.profile;
+                profileLink.classList.remove('hidden');
+            } else {
+                profileLink.classList.add('hidden');
+            }
+
+            replayAnimation(document.getElementById('modal-sheen'));
+            replayAnimation(document.getElementById('modal-stamp'));
+
+            lastFocusedBeforeModal = document.activeElement;
+            modalBackdrop.classList.add('open');
+            document.body.style.overflow = 'hidden';
+
+            const focusable = getFocusableModalEls();
+            if (focusable.length) focusable[0].focus();
+        }
+
+        function closeSuccessModal() {
+            modalBackdrop.classList.remove('open');
+            document.body.style.overflow = '';
+            if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function') {
+                lastFocusedBeforeModal.focus();
+            }
+        }
+
+        modalCloseBtn.addEventListener('click', closeSuccessModal);
+        modalContinueBtn.addEventListener('click', closeSuccessModal);
+        modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) closeSuccessModal(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!modalBackdrop.classList.contains('open')) return;
+            if (e.key === 'Escape') { closeSuccessModal(); return; }
+            if (e.key === 'Tab') {
+                const focusable = getFocusableModalEls();
+                if (!focusable.length) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
+        });
+
+        /* ============================================================
+           MAIN VERIFICATION FLOW
+           ============================================================ */
+        async function runVerification(rawId) {
+            showState('loading');
+            replayAnimation(document.querySelector('#state-loading .reader-frame'));
+
+            if (rawId === null || rawId === undefined || rawId.trim() === '') {
+                renderMissing();
+                return;
+            }
+
+            const normalized = normalizeEmployeeId(rawId);
+
+            if (!isValidEmployeeIdFormat(normalized)) {
+                renderNotFound(normalized || rawId);
+                return;
+            }
+
+            let result;
+            try {
+                result = await verifyEmployeeId(normalized);
+            } catch (err) {
+                console.error('Verification request failed unexpectedly:', err);
+                renderRegistryError();
+                return;
+            }
+
+            if (!result || typeof result !== 'object') { renderRegistryError(); return; }
+
+            switch (result.status) {
+                case 'active':
+                    renderSuccess(result.employee);
+                    break;
+                case 'inactive':
+                case 'revoked':
+                    renderInactive(result.employee || { id: normalized });
+                    break;
+                case 'not_found':
+                    renderNotFound(normalized);
+                    break;
+                default:
+                    renderRegistryError();
+            }
+        }
+
+        const verifyAnotherToggle = document.getElementById('verify-another-toggle');
+        const verifyAnotherForm = document.getElementById('verify-another-form');
+        const verifyAnotherInput = document.getElementById('verify-another-input');
+
+        verifyAnotherToggle.addEventListener('click', () => {
+            const isHidden = verifyAnotherForm.classList.contains('hidden');
+            verifyAnotherForm.classList.toggle('hidden');
+            if (isHidden) verifyAnotherInput.focus();
+        });
+
+        verifyAnotherForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const value = verifyAnotherInput.value;
+            if (!value.trim()) return;
+            const encoded = encodeURIComponent(normalizeEmployeeId(value));
+            window.history.pushState({}, '', `/emps/verify/${encoded}`);
+            runVerification(value);
+        });
+
+        runVerification(getRawEmployeeIdFromUrl());
+    </script>
+</body>
+</html>
