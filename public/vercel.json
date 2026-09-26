@@ -11,6 +11,10 @@
     {
       "source": "/founder/index",
       "destination": "/founder/"
+    },
+    {
+      "source": "/emps/verify/:id",
+      "destination": "/emps/verify/index.html"
     }
   ],
   "redirects": [
